@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  name: assetmanagement
+  labels:
+    app: asset-mgr-ms
+spec:
+  rules:
+    - host: assetmanagement.greencompute.ibmcase.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: asset-mgr-ms-svc
+              servicePort: 8080
