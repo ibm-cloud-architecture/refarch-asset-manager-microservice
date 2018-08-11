@@ -28,7 +28,6 @@ public class KeySpaceCreation {
 	     
 	      //using the KeySpace
 	      session.execute("USE "+cassandra_keyspace);
-	      System.out.println("Keyspace created"); 
 	}
 
 }
