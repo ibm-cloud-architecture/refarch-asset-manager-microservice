@@ -14,15 +14,17 @@ public class CassandraConnection {
 	  
 	   private Session session;
 	   
-	   Config config = ConfigProvider.getConfig();
+	   private Config config = ConfigProvider.getConfig();
 	   
-	   final String cassandra_host = config.getValue("cassandra_host", String.class);
-	   final int port = config.getValue("cassandra_port", Integer.class);
-	   final String cassandra_keyspace = config.getValue("cassandra_keyspace", String.class);
-	   final String cassandra_table = config.getValue("cassandra_table", String.class);
+	   private String cassandra_host = config.getValue("cassandra_host", String.class);
+	   private int port = config.getValue("cassandra_port", Integer.class);
+	   private String cassandra_keyspace = config.getValue("cassandra_keyspace", String.class);
+	   private String cassandra_table = config.getValue("cassandra_table", String.class);
+		  
+	
 	   
-	   public void getConfig()
-	   {
+	   public void getConfig(){
+		 
 		  cluster = Cluster.builder().addContactPoint(cassandra_host).withPort(port).build();
 	      final Metadata metdata = cluster.getMetadata();
 	      System.out.printf("Connected to the cluster: %s\n", metdata.getClusterName());
@@ -35,7 +37,6 @@ public class CassandraConnection {
 	   }
 	   
 	   public void getConnection(){
-			
 			final String createAssetCql = "create TABLE IF NOT EXISTS "+cassandra_keyspace+ "."+cassandra_table+"(id text PRIMARY KEY, os text, type text, ipaddress text, "
 					+ "version text, antivirus text, current double, rotation int, pressure int, temperature int, latitude double, longitude double)";
 			final String createIndexOS = "CREATE INDEX IF NOT EXISTS ON assetmonitoring.assets (os)";

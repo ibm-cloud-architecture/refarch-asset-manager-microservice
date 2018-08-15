@@ -2,8 +2,8 @@ package utils;
 
 import java.util.List;
 
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import model.Asset;
 

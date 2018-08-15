@@ -2,9 +2,8 @@ package utils;
 
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
-
 import model.Asset;
+
 
 public interface AssetDAO {
 	List<Asset> getAssets();

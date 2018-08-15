@@ -2,12 +2,17 @@ package utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 import com.datastax.driver.core.ResultSet;
+import com.datastax.driver.core.ResultSetFuture;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
-import com.datastax.driver.core.Statement;
-import com.datastax.driver.core.querybuilder.QueryBuilder;
+import com.google.common.collect.Lists;
+import com.google.common.util.concurrent.ListenableFuture;
 
 import model.Asset;
 
@@ -15,19 +20,38 @@ public class AssetDAOImpl implements AssetDAO {
 	
 	private final Session session;
 	
-	private final String cassandra_keyspace = "assetmonitoring";
-	private final String cassandra_table = "assets";
+	private Config config = ConfigProvider.getConfig();
+	
+	private final String cassandra_keyspace = config.getValue("cassandra_keyspace", String.class);
+	private final String cassandra_table = config.getValue("cassandra_table", String.class);
 	
     public AssetDAOImpl(Session session){
 		this.session=session;
 	}
 	
     @Override
-	public List<Asset> getAssets(){
+	public List<Asset> getAssets(){		
 		
-		List<Asset> assets = new ArrayList<>();
+        List<Asset> assets = new ArrayList<>();
 		
-		ResultSet resultset = session.execute("SELECT * FROM "+cassandra_keyspace+ "."+cassandra_table);
+        ResultSet resultset = null;
+		//ResultSet resultset = session.execute("SELECT * FROM "+cassandra_keyspace+ "."+cassandra_table);
+        
+        String[] list = {"id"};
+		
+		List<ResultSetFuture> futures = Lists.newArrayListWithExpectedSize(list.length);
+
+		futures.add(session.executeAsync("SELECT * FROM "+cassandra_keyspace+ "."+cassandra_table));
+
+		for (ListenableFuture<ResultSet> future : futures){
+		try {
+			resultset = future.get();
+		} catch (InterruptedException | ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
+		
 		for (Row row : resultset) {
 			Asset asset = new Asset();
 			asset.setId(row.getString("id"));
@@ -50,6 +74,7 @@ public class AssetDAOImpl implements AssetDAO {
 		return assets;
 		
 	}
+  
 
 	@Override
 	public List<Asset> getAssetsById(String id) {
@@ -57,7 +82,24 @@ public class AssetDAOImpl implements AssetDAO {
 		List<Asset> assets = new ArrayList<>();
 		
 		//Retrieve Assets by id
-		ResultSet resultset = session.execute("SELECT * FROM "+cassandra_keyspace+ "."+cassandra_table+" WHERE id = '"+id+"'");
+		//ResultSet resultset = session.execute("SELECT * FROM "+cassandra_keyspace+ "."+cassandra_table+" WHERE id = '"+id+"'");
+		ResultSet resultset = null;
+		
+        String[] list = {"id"};
+		
+		List<ResultSetFuture> futures = Lists.newArrayListWithExpectedSize(list.length);
+
+		futures.add(session.executeAsync("SELECT * FROM "+cassandra_keyspace+ "."+cassandra_table+" WHERE id = '"+id+"'"));
+
+		for (ListenableFuture<ResultSet> future : futures){
+		try {
+			resultset = future.get();
+		} catch (InterruptedException | ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
+		
 		for (Row row : resultset) {
 			Asset asset = new Asset();
 			asset.setId(row.getString("id"));
@@ -85,8 +127,25 @@ public class AssetDAOImpl implements AssetDAO {
 		
 		List<Asset> assets = new ArrayList<>();
 		
+        ResultSet resultset = null;
+		
+        String[] list = {"id"};
+		
+		List<ResultSetFuture> futures = Lists.newArrayListWithExpectedSize(list.length);
+
+		futures.add(session.executeAsync("SELECT * FROM "+cassandra_keyspace+ "."+cassandra_table+" WHERE type = '"+type+"'"));
+
+		for (ListenableFuture<ResultSet> future : futures){
+		try {
+			resultset = future.get();
+		} catch (InterruptedException | ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
+		
 		//Retrieve Assets
-		ResultSet resultset = session.execute("SELECT * FROM "+cassandra_keyspace+ "."+cassandra_table+" WHERE type = '"+type+"'");
+		//ResultSet resultset = session.execute("SELECT * FROM "+cassandra_keyspace+ "."+cassandra_table+" WHERE type = '"+type+"'");
 		for (Row row : resultset) {
 			Asset asset = new Asset();
 			asset.setId(row.getString("id"));
