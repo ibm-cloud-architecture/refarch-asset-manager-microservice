@@ -1,33 +1,28 @@
 package application.rest;
 
-import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
+
+import model.Asset;
+
 
 @Path("/")
-public class RootEndpoint {
-
+public class AssetResource {
+  
   @GET
+  @Path("/assets")
   @Produces(MediaType.APPLICATION_JSON)
-  public Response listResources(@Context UriInfo uriInfo) {
-    String healthURL = (uriInfo.getAbsolutePath() + "/health").replaceAll("(?<!http:)\\/\\/", "/");
-    String exampleURL = (uriInfo.getAbsolutePath() + "/v1/example").replaceAll("(?<!http:)\\/\\/", "/");
-    return Response.ok("{\"health\":\"" + healthURL + "\",\"example\":\"" + exampleURL + "\"}").build();
+  public Response getAssets(){
+	  AssetService assetRepo = new AssetService();
+	  List<Asset> assets = new ArrayList<>();
+	  assets = assetRepo.getAssets();
+	  return Response.ok(assets).build(); 
   }
-
-  @GET
-  @Produces({ MediaType.TEXT_HTML })
-  public InputStream getIndex() {
-    try {
-      return this.getClass().getResourceAsStream("/index.html");
-    } catch (Exception e) {
-      throw new RuntimeException("Exception returning index.html", e);
-    }
-  }
+  
 }
