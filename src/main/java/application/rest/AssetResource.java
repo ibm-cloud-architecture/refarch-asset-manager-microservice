@@ -15,26 +15,35 @@ import utils.CassandraConnection;
 @Path("/")
 public class AssetResource {
 	
-	  CassandraConnection cc = new CassandraConnection();
-	  AssetService assetRepo = new AssetService(cc);
+	CassandraConnection cc = new CassandraConnection();
+	AssetService assetRepo = new AssetService(cc);
 
-	  @GET
-	  @Path("/assets")
-	  @Produces(MediaType.APPLICATION_JSON)
-	  public List<Asset> getAssets(){ 
-		  List<Asset> assets = new ArrayList<>();
-		  assets = assetRepo.getAssets();
-		  return assets;
-	  }
+    @GET
+    @Path("/assets")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Asset> getAssets(){ 
+    	List<Asset> assets = new ArrayList<>();
+    	assets = assetRepo.getAssets();
+    	return assets;
+	}
 
-	  @GET
-	  @Path("/assets/{id}")
-	  @Produces(MediaType.APPLICATION_JSON)
-	  public List<Asset> getAssetById(@PathParam("id") String id) {
-		  List<Asset> assets = new ArrayList<>();
-		  assets = assetRepo.getAssetById(id);
-		  return assets;
-	  }
+	@GET
+	@Path("/assets/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Asset> getAssetById(@PathParam("id") String id) {
+		List<Asset> assets = new ArrayList<>();
+		assets = assetRepo.getAssetById(id);
+		return assets;
+	}
+
+	@GET
+	@Path("assets/type/{type}")
+	@Produces(MediaType.APPLICATION_JSON) 
+	public List<Asset> getAssetsByType(@PathParam("type") String type) {
+		List<Asset> assets = new ArrayList<>();
+		assets = assetRepo.getAssetsByType(type);
+		return assets;
+	}
 
 
 }

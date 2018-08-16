@@ -50,5 +50,16 @@ public class AssetResourceTest extends AbstractTest  {
 		List<Asset> ast = assetController.getAssetById("1");
 		Assert.assertEquals(ast, asst);
 	}
+	
+	@Test
+	public void getAssetsByTypeTest(){
+		
+		Asset asset = new Asset("1", "Window", "Window", "Kaspersky", "0.0.0.0", "1.0.0");
+		List<Asset> asst = new ArrayList<>();
+        asst.add(asset);
+		Mockito.when(assetRepo.getAssetsByType(Mockito.anyString())).thenReturn(asst);
+		List<Asset> ast = assetController.getAssetsByType("Window");
+		Assert.assertEquals(ast, asst);
+	}
 
 }

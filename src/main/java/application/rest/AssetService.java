@@ -48,4 +48,21 @@ public class AssetService {
 		return assets;
 	}
 
+	public List<Asset> getAssetsByType(String type) {
+		
+		List<Asset> assets = new ArrayList<>();
+
+	    cc.getConnection();
+	    Session session = cc.getSession();
+
+	    AssetDAOImpl assetDAO = new AssetDAOImpl(session);
+
+	    assets = assetDAO.getAssetsByType(type);
+	    
+	    cc.close();
+		
+		return assets;
+		
+	}
+
 }
