@@ -143,8 +143,8 @@
 	    	<artifactId>testng</artifactId>
 	    	<version>6.9.6</version>
 	    	<scope>test</scope>
-		</dependency>
-    </dependencies>
+		</dependency>  
+	</dependencies>
 
     <build>
         <plugins>

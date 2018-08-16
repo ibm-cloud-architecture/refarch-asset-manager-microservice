@@ -1,46 +1,58 @@
 package rest;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import application.rest.AssetResource;
 import application.rest.AssetService;
 import model.Asset;
+import utils.AbstractTest;
+import utils.CassandraConnection;
 
-public class AssetResourceTest {
+public class AssetResourceTest extends AbstractTest  {
 	
-private AssetResource assetResource;
-
-private AssetService assetRepo;
+	@Mock
+	AssetService a;
 	
-	@BeforeClass
-    public void setUp() throws Exception {
-		assetResource = new AssetResource();
-	    assetRepo = Mockito.mock(AssetService.class);
-    }
+	@BeforeMethod
+	public void init() {
+		MockitoAnnotations.initMocks(this);
+	}
 	
 	@Test
-	public void getAssetsTest(){
+	public void getAssetsTest() throws Exception{
 		
-		//Existing assets in testdb
+		final CassandraConnection cc = Mockito.spy(CassandraConnection.class);
+		
+        Mockito.doNothing().when(cc).getConnection();
+		
+		Mockito.when(cc.getSession()).thenReturn(cassandra.session);
+		
+		AssetService object = new AssetService(cc);
+		final AssetService spy = Mockito.spy(object);
+		
 		Asset asset = new Asset("1", "Window", "Window", "Kaspersky", "0.0.0.0", "1.0.0");
-		 
-		List<Asset> list = new ArrayList<>();
-		        
-		list.add(asset);
 		
+		List<Asset> asst = new ArrayList<>();
 		
-		Mockito.when(assetRepo.getAssets()).thenReturn(list);
+		asst.add(asset);
 		
-		assertEquals(assetResource.getAssets().toString().contains(asset.getType()), true);
+		Mockito.doReturn(asst).when(spy).getAssets();
 		
+		AssetResource asstres = new AssetResource(spy);
+		
+		List<Asset> assets = asstres.getAssets();
+		
+		Assert.assertTrue(assets.toString().contains(asset.getType()));
 		
 	}
+
 
 }

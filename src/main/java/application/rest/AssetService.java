@@ -11,11 +11,16 @@ import utils.CassandraConnection;
 
 public class AssetService {
 	
+	CassandraConnection cc;
+	
+	public AssetService(CassandraConnection cc) {
+	    this.cc = cc;
+	  }
+	
 	public List<Asset> getAssets(){
 	
 		List<Asset> assets = new ArrayList<>();
 		
-		CassandraConnection cc = new CassandraConnection();
 	    cc.getConnection();
 	    Session session = cc.getSession();
 		

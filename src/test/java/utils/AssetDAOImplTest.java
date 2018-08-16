@@ -2,12 +2,11 @@ package utils;
 
 import java.util.List;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 import model.Asset;
-
-import static org.junit.Assert.assertEquals;
 
 public class AssetDAOImplTest extends AbstractTest {
 	
@@ -26,7 +25,9 @@ public class AssetDAOImplTest extends AbstractTest {
  
         List<Asset> list = assetDAOImpl.getAssets();
         
-        assertEquals(list.toString().contains(asset.getType()), true);
+        //assertEquals(list.toString().contains(asset.getType()), true);
+        
+        Assert.assertTrue(list.toString().contains(asset.getType()));
     }
 	
 	@Test
@@ -37,7 +38,9 @@ public class AssetDAOImplTest extends AbstractTest {
  
         List<Asset> list = assetDAOImpl.getAssetsById("1");
  
-        assertEquals(list.toString().contains(asset.getId()), true);
+        //assertEquals(list.toString().contains(asset.getId()), true);
+        
+        Assert.assertTrue(list.toString().contains(asset.getId()));
     }
 	
 	@Test
@@ -48,7 +51,8 @@ public class AssetDAOImplTest extends AbstractTest {
  
         List<Asset> list = assetDAOImpl.getAssetsByType("Window");
  
-        assertEquals(list.toString().contains(asset.getType()), true);
+        //assertEquals(list.toString().contains(asset.getType()), true);
+        Assert.assertTrue(list.toString().contains(asset.getType()));
     }
 	
 	@Test
@@ -58,7 +62,8 @@ public class AssetDAOImplTest extends AbstractTest {
 		 
         assetDAOImpl.createAsset(asset);
  
-        assertEquals(assetDAOImpl.getAssets().contains(asset), true);
+        //assertEquals(assetDAOImpl.getAssets().contains(asset), true);
+        Assert.assertTrue(assetDAOImpl.getAssets().contains(asset));
     }
 	
 	@Test
@@ -68,7 +73,8 @@ public class AssetDAOImplTest extends AbstractTest {
  
         assetDAOImpl.updateAsset(asset, "0");
  
-        assertEquals(assetDAOImpl.getAssets().contains(asset), true);
+        //assertEquals(assetDAOImpl.getAssets().contains(asset), true);
+        Assert.assertTrue(assetDAOImpl.getAssets().contains(asset));
     }
 	
 	@Test
@@ -78,7 +84,8 @@ public class AssetDAOImplTest extends AbstractTest {
  
         assetDAOImpl.deleteAsset(asset.getId());
  
-        assertEquals(assetDAOImpl.getAssets().contains(asset),false);
+        //assertEquals(assetDAOImpl.getAssets().contains(asset),false);
+        Assert.assertFalse(assetDAOImpl.getAssets().contains(asset));
         
 	}
 

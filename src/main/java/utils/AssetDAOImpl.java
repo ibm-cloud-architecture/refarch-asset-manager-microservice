@@ -20,10 +20,13 @@ public class AssetDAOImpl implements AssetDAO {
 	
 	private final Session session;
 	
-	private Config config = ConfigProvider.getConfig();
+//	private Config config = ConfigProvider.getConfig();
 	
-	private final String cassandra_keyspace = config.getValue("cassandra_keyspace", String.class);
-	private final String cassandra_table = config.getValue("cassandra_table", String.class);
+//	private final String cassandra_keyspace = config.getValue("cassandra_keyspace", String.class);
+//	private final String cassandra_table = config.getValue("cassandra_table", String.class);
+	
+	private final String cassandra_keyspace = "assetmonitoring";
+	private final String cassandra_table = "assets";
 	
     public AssetDAOImpl(Session session){
 		this.session=session;

@@ -1,38 +1,40 @@
 package rest;
 
-
-import static org.junit.Assert.assertEquals;
-
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import application.rest.AssetService;
 import model.Asset;
+import utils.AbstractTest;
+import utils.CassandraConnection;
 
 
-public class AssetServiceTest {
+public class AssetServiceTest extends AbstractTest {
 	
-	private AssetService assetRepo;
-	
-	@BeforeClass
-    public void setUp() throws Exception {
-		assetRepo = new AssetService();
-    }
+	@BeforeMethod
+	public void init() {
+		MockitoAnnotations.initMocks(this);
+	}
 	
 	@Test
 	public void getAssetsTest(){
 		
-		//Existing assets in testdb
+		final CassandraConnection cc = Mockito.spy(CassandraConnection.class);
+		
+		Mockito.doNothing().when(cc).getConnection();
+		
+		Mockito.when(cc.getSession()).thenReturn(cassandra.session);
+	    
+		AssetService assetRepo = new AssetService(cc);
+		
 		Asset asset = new Asset("1", "Window", "Window", "Kaspersky", "0.0.0.0", "1.0.0");
-				 
-		//List<Asset> list = new ArrayList<>();
-				        
-		//list.add(asset);
-				
-				
-		//Mockito.when(assetRepo.getAssets()).thenReturn(list);
-				
-		assertEquals(assetRepo.getAssets().toString().contains(asset.getType()), true);
+		
+		System.out.println("assets"+assetRepo.getAssets().toString());
+		
+		Assert.assertTrue(assetRepo.getAssets().toString().contains(asset.getType()));
 		
 	}
 
