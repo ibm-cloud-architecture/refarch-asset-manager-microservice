@@ -32,17 +32,20 @@ public class AssetService {
 	    return assets;
 	 }
 
-//	public List<Asset> getAssetsById(String id) {
-//
-//       List<Asset> assets = new ArrayList<>();
-//
-//	    cc.getConnection();
-//	    Session session = cc.getSession();
-//
-//	    AssetDAOImpl assetDAO = new AssetDAOImpl(session);
-//
-//	    assets = assetDAO.getAssetsById(id);
-//	    return assets;
-//	}
+	public List<Asset> getAssetById(String id) {
+		
+		List<Asset> assets = new ArrayList<>();
+
+	    cc.getConnection();
+	    Session session = cc.getSession();
+
+	    AssetDAOImpl assetDAO = new AssetDAOImpl(session);
+
+	    assets = assetDAO.getAssetsById(id);
+	    
+	    cc.close();
+		
+		return assets;
+	}
 
 }

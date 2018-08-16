@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -23,6 +24,15 @@ public class AssetResource {
 	  public List<Asset> getAssets(){ 
 		  List<Asset> assets = new ArrayList<>();
 		  assets = assetRepo.getAssets();
+		  return assets;
+	  }
+
+	  @GET
+	  @Path("/assets/{id}")
+	  @Produces(MediaType.APPLICATION_JSON)
+	  public List<Asset> getAssetById(@PathParam("id") String id) {
+		  List<Asset> assets = new ArrayList<>();
+		  assets = assetRepo.getAssetById(id);
 		  return assets;
 	  }
 
