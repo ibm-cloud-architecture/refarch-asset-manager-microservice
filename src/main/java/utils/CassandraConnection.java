@@ -23,26 +23,25 @@ public class CassandraConnection {
 	   
 
 	   public void getConnection(){
-
+		   
 		   cluster = Cluster.builder().addContactPoint(cassandra_host).withPort(port).build();
-		      final Metadata metdata = cluster.getMetadata();
-		      System.out.printf("Connected to the cluster: %s\n", metdata.getClusterName());
-		      for (final Host host : metdata.getAllHosts())
-		      {
-		            System.out.printf("Cassandra Datacenter: %s; Cassandra Host: %s; Cassandra Rack: %s\n",
-		            host.getDatacenter(), host.getAddress(), host.getRack());
-		      }
-		      session = cluster.connect();
-		}
-
-	   public Session getSession()
-	   {
-	      return this.session;
+		   final Metadata metdata = cluster.getMetadata();
+		   System.out.printf("Connected to the cluster: %s\n", metdata.getClusterName());
+		   for (final Host host : metdata.getAllHosts()){
+			   System.out.printf("Cassandra Datacenter: %s; Cassandra Host: %s; Cassandra Rack: %s\n",
+					   host.getDatacenter(), host.getAddress(), host.getRack());
+			
+		   }
+		   session = cluster.connect();
+		   
 	   }
-
-	   public void close()
-	   {
-	      cluster.close();
+	   
+	   public Session getSession(){
+		   return this.session;   
+	   }
+	   
+	   public void close(){
+		   cluster.close();
 	   }
 
 }
