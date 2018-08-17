@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -66,6 +67,15 @@ public class AssetResource {
 	public String updateAsset(Asset asset, @PathParam("id") String id) {
 		assetRepo.updateAsset(asset, id);
 		return "Asset with ID "+asset.getId()+" got updated";
+	}
+
+	@DELETE
+	@Path("/assets/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String deleteAsset(@PathParam("id") String id) {
+		assetRepo.deleteAsset(id);
+		return "Asset with ID "+id+" got deleted";
 	}
 
 

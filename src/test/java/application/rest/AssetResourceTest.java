@@ -79,5 +79,14 @@ public class AssetResourceTest extends AbstractTest  {
 		String ast = assetController.updateAsset(asset, "3");
 		Assert.assertTrue(ast.contains(asset.getId()));
 	}
+	
+	@Test
+	public void deleteAssetTest(){
+		
+		Asset asset = new Asset("4", "Window", "Window", "Kaspersky", "0.0.0.0", "4.0.0");
+		Mockito.when(assetRepo.deleteAsset(Mockito.anyString())).thenReturn("Asset with ID "+asset.getId()+" got deleted");
+		String ast = assetController.deleteAsset("4");
+		Assert.assertTrue(ast.contains(asset.getId()));
+	}
 
 }

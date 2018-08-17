@@ -196,12 +196,14 @@ public class AssetDAOImpl {
 	   return "Asset with ID "+asset.getId()+" got updated";
 	   
    }
+   
+   //Delete an asset
+   public String deleteAsset(String id) {
+	   
+	   session.executeAsync("delete from assetmonitoring.assets WHERE id='"+id+"'");
+	   
+	   return "Asset with ID "+id+" got deleted";
 
-//	public void deleteAsset(String id) {
-//
-//		//Delete an asset
-//		session.execute("delete from assetmonitoring.assets WHERE id='"+id+"'");
-//
-//	}
+	}
 
 }

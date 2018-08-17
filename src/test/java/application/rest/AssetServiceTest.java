@@ -118,6 +118,27 @@ public class AssetServiceTest extends AbstractTest {
 
 	}
 	
+	@Test
+	public void deleteAssetTest(){
+
+		final CassandraConnection cc = Mockito.spy(CassandraConnection.class);
+
+		Mockito.doNothing().when(cc).getConnection();
+
+		Mockito.when(cc.getSession()).thenReturn(cassandra.session);
+		
+		Mockito.doNothing().when(cc).close();
+
+		AssetService assetRepo = new AssetService(cc);
+
+		Asset asset = new Asset("4", "Window", "Window", "Kaspersky", "0.0.0.0", "4.0.0");
+		
+        String delete = assetRepo.deleteAsset("4");
+		
+		Assert.assertTrue(delete.contains(asset.getId()));
+
+	}
+	
 	
 
 }

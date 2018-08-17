@@ -95,4 +95,19 @@ public class AssetService {
 		
 	}
 
+	public String deleteAsset(String id) {
+		
+		cc.getConnection();
+		Session session = cc.getSession();
+		
+		AssetDAOImpl assetDAO = new AssetDAOImpl(session);
+		
+		assetDAO.deleteAsset(id);
+		
+		cc.close();
+		
+		return "Asset with ID "+id+" got updated";
+		
+	}
+
 }

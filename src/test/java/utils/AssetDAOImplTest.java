@@ -11,7 +11,9 @@ import model.Asset;
 public class AssetDAOImplTest extends AbstractTest {
 	
 	private AssetDAOImpl assetDAOImpl;
-
+	
+	private volatile boolean value = false;
+	
 	@BeforeClass
 	public void setUp() throws Exception {
 		assetDAOImpl = new AssetDAOImpl(cassandra.session);
@@ -61,7 +63,15 @@ public class AssetDAOImplTest extends AbstractTest {
 		
 		String create = assetDAOImpl.createAsset(asset);
 		
-		Assert.assertTrue(create.contains(asset.getId()));
+		while(!value)
+		{
+			if(create.contains(asset.getId())) {
+				value = true;
+			}
+		  Thread.sleep(1000);
+		}
+	
+		Assert.assertTrue(assetDAOImpl.getAssets().contains(asset));
 	}
 
 	@Test
@@ -71,19 +81,35 @@ public class AssetDAOImplTest extends AbstractTest {
 		
 		String update = assetDAOImpl.updateAsset(asset, "3");
 		
-		Assert.assertTrue(update.contains(asset.getId()));
+		while(!value)
+		{
+			if(update.contains(asset.getId())) {
+				value = true;
+			}
+		  Thread.sleep(1000);
+		}
+	
+		Assert.assertTrue(assetDAOImpl.getAssets().contains(asset));
 		
 	}
 
-//	@Test
-//	public void deleteAssetTest() throws Exception {
-//		
-//		Asset asset = new Asset("4", "Window", "Window", "Kaspersky", "0.0.0.0", "4.0.0");
-//		
-//		assetDAOImpl.deleteAsset(asset.getId());
-//		
-//		Assert.assertFalse(assetDAOImpl.getAssets().contains(asset));
-//
-//	}
+	@Test
+	public void deleteAssetTest() throws Exception {
+		
+		Asset asset = new Asset("4", "Window", "Window", "Kaspersky", "0.0.0.0", "4.0.0");
+		
+		String delete = assetDAOImpl.deleteAsset("4");
+		
+		while(!value)
+		{
+			if(delete.contains(asset.getId())) {
+				value = true;
+			}
+		  Thread.sleep(1000);
+		}
+	
+		Assert.assertTrue(assetDAOImpl.getAssetsById("4").isEmpty());
+
+	}
 
 }
