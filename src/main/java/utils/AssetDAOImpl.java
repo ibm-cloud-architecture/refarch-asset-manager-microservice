@@ -131,7 +131,7 @@ public class AssetDAOImpl {
 	   
 	   ResultSet resultset = null;
 	   
-	   String[] list = {"id"};
+	   String[] list = {"id","type"};
 	   
 	   List<ResultSetFuture> futures = Lists.newArrayListWithExpectedSize(list.length);
 	   
