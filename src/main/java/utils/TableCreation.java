@@ -14,8 +14,6 @@ public class TableCreation {
 		
 		final String createAssetCql = "create TABLE IF NOT EXISTS "+cassandra_keyspace+ "."+cassandra_table+"(id text PRIMARY KEY, os text, type text, ipaddress text, "
 				+ "version text, antivirus text, current double, rotation int, pressure int, temperature int, latitude double, longitude double)";
-		
-		final String createIndexOS = "CREATE INDEX IF NOT EXISTS ON "+cassandra_keyspace+ "."+cassandra_table+"(os)";
 
 	    final String createIndexType = "CREATE INDEX IF NOT EXISTS ON "+cassandra_keyspace+ "."+cassandra_table+"(type)";
 	    
@@ -30,7 +28,6 @@ public class TableCreation {
 	    System.out.println("Table created");
 	    
 	    //Create indexes
-	    session.execute(createIndexOS);
 	    session.execute(createIndexType);
 	    System.out.println("Indexes created");
 	    

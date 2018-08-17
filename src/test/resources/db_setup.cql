@@ -1,7 +1,7 @@
 CREATE KEYSPACE IF NOT EXISTS assetmonitoring with replication = {'class':'SimpleStrategy','replication_factor':1};
 
 CREATE TABLE IF NOT EXISTS assetmonitoring.assets(
-    id text, 
+    id text PRIMARY KEY, 
     os text, 
     type text, 
     ipaddress text, 
@@ -12,11 +12,9 @@ CREATE TABLE IF NOT EXISTS assetmonitoring.assets(
     pressure int, 
     temperature int, 
     latitude double, 
-    longitude double,
-    PRIMARY KEY(id)
+    longitude double
 );
 
-CREATE INDEX IF NOT EXISTS ON assetmonitoring.assets (os);
 CREATE INDEX IF NOT EXISTS ON assetmonitoring.assets (type);
 
 INSERT INTO assetmonitoring.assets (id, os, type, ipaddress, version, antivirus, current, rotation, pressure, temperature, latitude, longitude) values ('1', 'Window', 'Window', '0.0.0.0', '1.0.0', 'Kaspersky', 1, 1, 1, 1, 1, 1);
