@@ -80,4 +80,19 @@ public class AssetService {
 		
 	}
 
+	public String updateAsset(Asset asset, String id) {
+		
+		cc.getConnection();
+		Session session = cc.getSession();
+		
+		AssetDAOImpl assetDAO = new AssetDAOImpl(session);
+		
+		assetDAO.updateAsset(asset, id);
+		
+		cc.close();
+		
+		return "Asset with ID "+asset.getId()+" got updated";
+		
+	}
+
 }

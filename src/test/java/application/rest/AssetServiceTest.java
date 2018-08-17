@@ -97,6 +97,27 @@ public class AssetServiceTest extends AbstractTest {
 
 	}
 	
+	@Test
+	public void updateAssetTest(){
+
+		final CassandraConnection cc = Mockito.spy(CassandraConnection.class);
+
+		Mockito.doNothing().when(cc).getConnection();
+
+		Mockito.when(cc.getSession()).thenReturn(cassandra.session);
+		
+		Mockito.doNothing().when(cc).close();
+
+		AssetService assetRepo = new AssetService(cc);
+
+		Asset asset = new Asset("3", "UpdWindow", "UpdWindow", "UpdKaspersky", "1.1.1.1", "3.0.1");
+		
+        String create = assetRepo.updateAsset(asset, "3");
+		
+		Assert.assertTrue(create.contains(asset.getId()));
+
+	}
+	
 	
 
 }

@@ -69,9 +69,9 @@ public class AssetDAOImplTest extends AbstractTest {
 		
 		Asset asset = new Asset("3", "UpdWindow", "UpdWindow", "UpdKaspersky", "1.1.1.1", "3.0.1");
 		
-		assetDAOImpl.updateAsset(asset, "3");
+		String update = assetDAOImpl.updateAsset(asset, "3");
 		
-		Assert.assertTrue(assetDAOImpl.getAssets().contains(asset));
+		Assert.assertTrue(update.contains(asset.getId()));
 		
 	}
 

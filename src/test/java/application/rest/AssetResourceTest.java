@@ -70,5 +70,14 @@ public class AssetResourceTest extends AbstractTest  {
 		String ast = assetController.createAsset(asset);
 		Assert.assertTrue(ast.contains(asset.getId()));
 	}
+	
+	@Test
+	public void updateAssetTest(){
+		
+		Asset asset = new Asset("3", "UpdWindow", "UpdWindow", "UpdKaspersky", "1.1.1.1", "3.0.1");
+		Mockito.when(assetRepo.updateAsset(Mockito.anyObject(), Mockito.anyString())).thenReturn("Asset with ID "+asset.getId()+" got updated");
+		String ast = assetController.updateAsset(asset, "3");
+		Assert.assertTrue(ast.contains(asset.getId()));
+	}
 
 }
