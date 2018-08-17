@@ -165,32 +165,34 @@ public class AssetDAOImpl {
 		return assets;
 	}
 
-	public void createAsset(Asset asset) {
+	public String createAsset(Asset asset) {
 
 		//Create an Asset
-		session.execute("insert into assetmonitoring.assets "
+		session.executeAsync("insert into "+cassandra_keyspace+ "."+cassandra_table
 				+ "(id, os, type, ipaddress, version, antivirus, current, rotation, pressure, temperature, latitude, longitude) "
 				+ "values ('"+asset.getId()+"', '"+asset.getOs()+"', '"+asset.getType()+"', '"+asset.getIpAddress()+"', '"+asset.getVersion()+"',"
 				+ " '"+asset.getAntivirus()+"', "+asset.getCurrent()+", "+asset.getRotation()+", "+asset.getPressure()+", "+asset.getTemperature()+""
 				+ ", "+asset.getLatitude()+", "+asset.getLongitude()+");");
+		
+		return "Asset with ID "+asset.getId()+" got created";
 
 	}
 
 	public void updateAsset(Asset asset, String id) {
 
 		//Update an Asset
-		session.execute("update assetmonitoring.assets set os='"+asset.getOs()+"', type='"+asset.getType()+"',"
+		session.executeAsync("update assetmonitoring.assets set os='"+asset.getOs()+"', type='"+asset.getType()+"',"
 				+ " ipaddress='"+asset.getIpAddress()+"', version='"+asset.getVersion()+"', antivirus='"+asset.getAntivirus()+"',"
 				+ " current="+asset.getCurrent()+", rotation="+asset.getRotation()+", pressure="+asset.getPressure()+", temperature="+asset.getTemperature()+""
 				+ ", latitude="+asset.getLatitude()+", longitude="+asset.getLongitude()+" where id='"+id+"'");
 
 	}
 
-	public void deleteAsset(String id) {
-
-		//Delete an asset
-		session.execute("delete from assetmonitoring.assets WHERE id='"+id+"'");
-
-	}
+//	public void deleteAsset(String id) {
+//
+//		//Delete an asset
+//		session.execute("delete from assetmonitoring.assets WHERE id='"+id+"'");
+//
+//	}
 
 }

@@ -3,11 +3,15 @@ package application.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriInfo;
 
 import model.Asset;
 import utils.CassandraConnection;
@@ -43,6 +47,15 @@ public class AssetResource {
 		List<Asset> assets = new ArrayList<>();
 		assets = assetRepo.getAssetsByType(type);
 		return assets;
+	}
+
+	@POST
+	@Path("/assets")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+	public String createAsset(Asset asset) {
+		assetRepo.createAsset(asset);
+		return "Asset with ID "+asset.getId()+" got created";
 	}
 
 

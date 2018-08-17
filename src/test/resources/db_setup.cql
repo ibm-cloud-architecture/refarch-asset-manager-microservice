@@ -21,3 +21,5 @@ CREATE INDEX IF NOT EXISTS ON assetmonitoring.assets (type);
 
 INSERT INTO assetmonitoring.assets (id, os, type, ipaddress, version, antivirus, current, rotation, pressure, temperature, latitude, longitude) values ('1', 'Window', 'Window', '0.0.0.0', '1.0.0', 'Kaspersky', 1, 1, 1, 1, 1, 1);
 INSERT INTO assetmonitoring.assets (id, os, type, ipaddress, version, antivirus, current, rotation, pressure, temperature, latitude, longitude) values ('2', 'Window', 'Window', '0.0.0.0', '2.0.0', 'Kaspersky', 1, 1, 1, 1, 1, 1);
+INSERT INTO assetmonitoring.assets (id, os, type, ipaddress, version, antivirus, current, rotation, pressure, temperature, latitude, longitude) values ('3', 'Window', 'Window', '0.0.0.0', '3.0.0', 'Kaspersky', 1, 1, 1, 1, 1, 1);
+INSERT INTO assetmonitoring.assets (id, os, type, ipaddress, version, antivirus, current, rotation, pressure, temperature, latitude, longitude) values ('4', 'Window', 'Window', '0.0.0.0', '4.0.0', 'Kaspersky', 1, 1, 1, 1, 1, 1);

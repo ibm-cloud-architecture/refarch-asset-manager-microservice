@@ -61,5 +61,14 @@ public class AssetResourceTest extends AbstractTest  {
 		List<Asset> ast = assetController.getAssetsByType("Window");
 		Assert.assertEquals(ast, asst);
 	}
+	
+	@Test
+	public void createAssetTest(){
+		
+		Asset asset = new Asset("0", "test", "test", "test", "0.0.0.0", "1.0.0");
+		Mockito.when(assetRepo.createAsset(Mockito.anyObject())).thenReturn("Asset with ID "+asset.getId()+" got created");
+		String ast = assetController.createAsset(asset);
+		Assert.assertTrue(ast.contains(asset.getId()));
+	}
 
 }
