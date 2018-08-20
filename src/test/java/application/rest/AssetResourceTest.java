@@ -39,5 +39,54 @@ public class AssetResourceTest extends AbstractTest  {
 		List<Asset> ast = assetController.getAssets();
 		Assert.assertEquals(ast, asst);
 	}
+	
+	@Test
+	public void getAssetByIdTest(){
+		
+		Asset asset = new Asset("1", "Window", "Window", "Kaspersky", "0.0.0.0", "1.0.0");
+		List<Asset> asst = new ArrayList<>();
+        asst.add(asset);
+		Mockito.when(assetRepo.getAssetById(Mockito.anyString())).thenReturn(asst);
+		List<Asset> ast = assetController.getAssetById("1");
+		Assert.assertEquals(ast, asst);
+	}
+	
+	@Test
+	public void getAssetsByTypeTest(){
+		
+		Asset asset = new Asset("1", "Window", "Window", "Kaspersky", "0.0.0.0", "1.0.0");
+		List<Asset> asst = new ArrayList<>();
+        asst.add(asset);
+		Mockito.when(assetRepo.getAssetsByType(Mockito.anyString())).thenReturn(asst);
+		List<Asset> ast = assetController.getAssetsByType("Window");
+		Assert.assertEquals(ast, asst);
+	}
+	
+	@Test
+	public void createAssetTest(){
+		
+		Asset asset = new Asset("0", "test", "test", "test", "0.0.0.0", "1.0.0");
+		Mockito.when(assetRepo.createAsset(Mockito.anyObject())).thenReturn("Asset with ID "+asset.getId()+" got created");
+		String ast = assetController.createAsset(asset);
+		Assert.assertTrue(ast.contains(asset.getId()));
+	}
+	
+	@Test
+	public void updateAssetTest(){
+		
+		Asset asset = new Asset("3", "UpdWindow", "UpdWindow", "UpdKaspersky", "1.1.1.1", "3.0.1");
+		Mockito.when(assetRepo.updateAsset(Mockito.anyObject(), Mockito.anyString())).thenReturn("Asset with ID "+asset.getId()+" got updated");
+		String ast = assetController.updateAsset(asset, "3");
+		Assert.assertTrue(ast.contains(asset.getId()));
+	}
+	
+	@Test
+	public void deleteAssetTest(){
+		
+		Asset asset = new Asset("4", "Window", "Window", "Kaspersky", "0.0.0.0", "4.0.0");
+		Mockito.when(assetRepo.deleteAsset(Mockito.anyString())).thenReturn("Asset with ID "+asset.getId()+" got deleted");
+		String ast = assetController.deleteAsset("4");
+		Assert.assertTrue(ast.contains(asset.getId()));
+	}
 
 }
