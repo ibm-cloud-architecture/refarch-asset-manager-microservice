@@ -10,6 +10,7 @@ import utils.CassandraConnection;
 import utils.KeySpaceCreation;
 import utils.TableCreation;
 
+
 @ApplicationPath("/")
 @Singleton
 @Startup
@@ -19,16 +20,16 @@ public class AssetApplication extends Application {
     public void init() {
         CassandraConnection cc = new CassandraConnection();
         
-        cc.getConnection();
-        System.out.println("Cassandra connection established");
-        
-        final KeySpaceCreation keyspace = new KeySpaceCreation();
-        keyspace.createKeySpace();
-        System.out.println("Keyspace created");
-        
-        final TableCreation table = new TableCreation();
-        table.createTable();
-        System.out.println("Tables created");
+//        cc.getConnection();
+//        System.out.println("Cassandra connection established");
+//        
+//        final KeySpaceCreation keyspace = new KeySpaceCreation();
+//        keyspace.createKeySpace();
+//        System.out.println("Keyspace created");
+//        
+//        final TableCreation table = new TableCreation();
+//        table.createTable();
+//        System.out.println("Tables created");
         
     }
 
