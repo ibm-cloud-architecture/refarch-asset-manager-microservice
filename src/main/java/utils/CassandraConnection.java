@@ -1,5 +1,8 @@
 package utils;
 
+import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.ConfigProvider;
+
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Host;
 import com.datastax.driver.core.Metadata;
@@ -11,19 +14,17 @@ public class CassandraConnection {
 
 	   private Session session;
 
-//	   private Config config = ConfigProvider.getConfig();
-//
-//	   private String cassandra_host = config.getValue("cassandra_host", String.class);
-//	   private int port = config.getValue("cassandra_port", Integer.class);
-//	   private String cassandra_keyspace = config.getValue("cassandra_keyspace", String.class);
-//	   private String cassandra_table = config.getValue("cassandra_table", String.class);
+	   private Config config;
 
-	   private String cassandra_host = "localhost";
-	   private int port = 9042;
+	   private String cassandra_host; 
+	   private int port;
 	   
 
 	   public void getConnection(){
-		   
+		   config = ConfigProvider.getConfig();
+		   cassandra_host = config.getValue("cassandra_host", String.class);
+		   port = config.getValue("cassandra_port", Integer.class);
+		   System.out.println("Acquired host"+cassandra_host+" with port"+port);
 		   cluster = Cluster.builder().addContactPoint(cassandra_host).withPort(port).build();
 		   final Metadata metdata = cluster.getMetadata();
 		   System.out.printf("Connected to the cluster: %s\n", metdata.getClusterName());
@@ -35,6 +36,7 @@ public class CassandraConnection {
 		   session = cluster.connect();
 		   
 	   }
+	   
 	   
 	   public Session getSession(){
 		   return this.session;   
