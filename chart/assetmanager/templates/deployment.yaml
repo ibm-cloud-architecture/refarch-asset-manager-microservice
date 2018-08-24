@@ -21,15 +21,24 @@ spec:
 {{ else }}
         readinessProbe:
           httpGet:
-            path: /assetmanager/health
+            path: /
             port: 9080
-          initialDelaySeconds: 20
+          initialDelaySeconds: 60
+          timeoutSeconds: 60
 {{ end }}
         resources:
           requests:
             cpu: "{{ .Values.image.resources.requests.cpu }}"
             memory: "{{ .Values.image.resources.requests.memory }}"
         env:
+          - name: cassandra_host
+            value: "{{ .Values.cassandra.cassandra_host }}"
+          - name: cassandra_port
+            value: "{{ .Values.cassandra.cassandra_port }}"
+          - name: cassandra_keyspace
+            value: "{{ .Values.cassandra.cassandra_keyspace }}"
+          - name: cassandra_table
+            value: "{{ .Values.cassandra.cassandra_table }}"
           - name: PORT
             value: "{{ .Values.service.servicePort }}"
           - name: APPLICATION_NAME
