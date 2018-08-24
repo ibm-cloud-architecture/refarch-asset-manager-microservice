@@ -3,9 +3,9 @@
 replicaCount: 1
 revisionHistoryLimit: 1
 image:
-  repository: assetmanager
+  repository: ibmcase/assetmanagermp
   tag: v1.0.0
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   resources:
     requests:
       cpu: 200m
@@ -29,8 +29,13 @@ base:
   enabled: false
   replicaCount: 1
   image:
-    tag : v0.9.9
+    tag : v1.0.0
   weight: 100
 istio:
   enabled: false
   weight: 100
+cassandra:
+  cassandra_host: cassandra
+  cassandra_port: 9042
+  cassandra_keyspace: assetmonitoring
+  cassandra_table: assets
