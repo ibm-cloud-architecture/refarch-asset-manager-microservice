@@ -2,20 +2,20 @@ apiVersion: v1
 entries:
   assetmanager:
   - apiVersion: v1
-    created: 2018-08-27T12:51:29.774662475-05:00
+    created: 2018-08-27T16:40:10.455873-05:00
     description: A Helm chart for Kubernetes
-    digest: 059278a612f98e4bc8660fe0ab4920b4ccd18dcdcd9c9e68373e29d815aa9715
+    digest: 87714107f3246aefea713fad667d5786cd956b558e5f3196acbfcdabae604b0e
     name: assetmanager
     urls:
     - assetmanager-1.0.0.tgz
     version: 1.0.0
   cassandra:
   - apiVersion: v1
-    created: 2018-08-27T12:51:29.774912893-05:00
+    created: 2018-08-27T16:40:10.456402-05:00
     description: A Helm chart for Kubernetes to deploy Cassandra
-    digest: 2583d2d709c8fd11b58bdb6db83064fa0a4f8b59c697cadc21d149cd83cb5db4
+    digest: 0b020c92d720a688ac59e63b5f728ded09c49e7366a2ad3ca925d87ea8f28685
     name: cassandra
     urls:
     - cassandra-1.0.0.tgz
     version: 1.0.0
-generated: 2018-08-27T12:51:29.774066065-05:00
+generated: 2018-08-27T16:40:10.453596-05:00
