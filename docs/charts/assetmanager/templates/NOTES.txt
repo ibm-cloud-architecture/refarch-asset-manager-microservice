@@ -1,16 +1,30 @@
-#########################################################################
-######   Asset Manager Microservice was successfully installed!!!   #####
-#########################################################################
+###########################################################################################################
+######################   Asset Manager Microservice was successfully installed!!!   #######################
+###########################################################################################################
 
 To access asset manager microservice, please follow the steps below:
 
-1. To get the IP Address for the Web Application, run one the following commands based on your environment:
+You can access the application using ingress
+assetmgr.greencompute.ibmcase.com
 
-  IBM Cloud Private:
-  nodeip=PROXY_NODE_EXTERNAL_IP
+***********************************************************************************************************
 
-  Minikube:
-  nodeip=$(minikube ip)
+                                           APIs available
 
-  Others:
-  nodeip=$(kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}' | awk '{print $1}')
+***********************************************************************************************************
+
+POST
+assetmgr.greencompute.ibmcase.com/assetmanager/assets               - Save an Asset
+
+GET
+assetmgr.greencompute.ibmcase.com/assetmanager/assets               - Get all the available assets
+assetmgr.greencompute.ibmcase.com/assetmanager/assets/{id}          - Get all the available assets by id
+assetmgr.greencompute.ibmcase.com/assetmanager/assets/type/{type}   - Get all the available assets by type
+
+PUT
+assetmgr.greencompute.ibmcase.com/assetmanager/assets/{id}          - Update an Asset
+
+DELETE
+assetmgr.greencompute.ibmcase.com/assetmanager/assets/{id}          - Delete an Asset
+
+**********************************************************************************************************
