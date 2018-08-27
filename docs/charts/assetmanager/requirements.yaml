@@ -1,0 +1,7 @@
+dependencies:
+  - name: assetmanager
+    version: 1.0.0
+    repository: https://raw.githubusercontent.com/ibm-cloud-architecture/refarch-asset-manager-microservice/microprofile/docs/charts/services
+  - name: cassandra
+    version: 1.0.0
+    repository: https://raw.githubusercontent.com/ibm-cloud-architecture/refarch-asset-manager-microservice/microprofile/docs/charts/services

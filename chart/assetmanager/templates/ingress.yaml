@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  name: "{{  .Chart.Name }}-ingress"
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+spec:
+  rules:
+    - host: assetmgr.greencompute.ibmcase.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: "{{  .Chart.Name }}-service"
+              servicePort: {{ .Values.service.servicePort }}

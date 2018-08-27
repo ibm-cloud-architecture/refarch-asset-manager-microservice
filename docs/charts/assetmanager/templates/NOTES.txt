@@ -1,0 +1,30 @@
+###########################################################################################################
+######################   Asset Manager Microservice was successfully installed!!!   #######################
+###########################################################################################################
+
+To access asset manager microservice, please follow the steps below:
+
+You can access the application using ingress
+assetmgr.greencompute.ibmcase.com
+
+***********************************************************************************************************
+
+                                           APIs available
+
+***********************************************************************************************************
+
+POST
+assetmgr.greencompute.ibmcase.com/assetmanager/assets               - Save an Asset
+
+GET
+assetmgr.greencompute.ibmcase.com/assetmanager/assets               - Get all the available assets
+assetmgr.greencompute.ibmcase.com/assetmanager/assets/{id}          - Get all the available assets by id
+assetmgr.greencompute.ibmcase.com/assetmanager/assets/type/{type}   - Get all the available assets by type
+
+PUT
+assetmgr.greencompute.ibmcase.com/assetmanager/assets/{id}          - Update an Asset
+
+DELETE
+assetmgr.greencompute.ibmcase.com/assetmanager/assets/{id}          - Delete an Asset
+
+**********************************************************************************************************
