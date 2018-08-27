@@ -15,3 +15,6 @@
 .DS_Store
 /src/main/liberty/config/server.env
 /.apt_generated/
+
+docs/charts/assetmanager/charts/
+docs/charts/assetmanager/requirements.lock
