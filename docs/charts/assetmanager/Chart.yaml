@@ -1,0 +1,7 @@
+apiVersion: v1
+description: Asset Manager Microservice using Cassandra
+name: assetmanagermp
+version: 0.0.1
+home: https://github.com/ibm-cloud-architecture/refarch-asset-manager-microservice/tree/microprofile
+sources:
+  - https://github.com/ibm-cloud-architecture/refarch-asset-manager-microservice/tree/microprofile
