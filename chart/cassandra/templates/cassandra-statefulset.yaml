@@ -25,7 +25,7 @@ spec:
               name: cql
           env:
             - name: CASSANDRA_SEEDS
-              value: cassandra-0.cassandra.hema.svc.cluster.local
+              value: cassandra-0.cassandra.greencompute.svc.cluster.local
             - name: MAX_HEAP_SIZE
               value: 256M
             - name: HEAP_NEWSIZE
