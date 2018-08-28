@@ -10,8 +10,7 @@
 * [Features and App details](#features)
 * [Deploying the App](#deploying-the-app)
     + [IBM Cloud Private](#ibm-cloud-private)
-    + [Minikube](#minikube)
-    + [Run Inventory Service locally](#run-orders-service-locally)
+    + [Run Asset Service locally](#run-asset-service-locally)
 * [References](#references)
 
 ## Introduction
