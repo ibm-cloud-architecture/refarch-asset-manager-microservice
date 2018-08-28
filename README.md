@@ -1,65 +1,183 @@
-## Microservice
-IBM Cloud Microservice Starter for Java - MicroProfile / Java EE
+# Microprofile based Microservice Apps Integration with Cassandra
 
-[![](https://img.shields.io/badge/bluemix-powered-blue.svg)](https://bluemix.net)
-[![Platform](https://img.shields.io/badge/platform-java-lightgrey.svg?style=flat)](https://www.ibm.com/developerworks/learn/java/)
+## Table of Contents
 
-### Table of Contents
-* [Summary](#summary)
-* [Requirements](#requirements)
-* [Configuration](#configuration)
-* [Project contents](#project-contents)
-* [Run](#run)
+* [Introduction](#introduction)
+* [How it works](#how-it-works)
+* [API Endpoints](#api-endpoints)
+* [Implementation](#implementation)
+    * [Microprofile](#microprofile)
+* [Features and App details](#features)
+* [Deploying the App](#deploying-the-app)
+    + [IBM Cloud Private](#ibm-cloud-private)
+    + [Run Asset Service locally](#run-asset-service-locally)
+* [References](#references)
 
-### Summary
+## Introduction
 
-The IBM Cloud Microservice Starter for Java - MicroProfile / Java EE provides a starting point for creating Java microservice applications running on [WebSphere Liberty](https://developer.ibm.com/wasdev/).
+This project is built to demonstrate how to build Asset Management Microservices applications using Microprofile. 
+This application provides CRUD operations from a NoSQL database [***Cassandra***](http://cassandra.apache.org/).
 
-To deploy this application to IBM Cloud using a toolchain click the **Create Toolchain** button.
-[![Create Toolchain](https://console.ng.bluemix.net/devops/graphics/create_toolchain_button.png)](https://console.ng.bluemix.net/devops/setup/deploy/)
+- Based on [MicroProfile](https://microprofile.io/).
+- Persist asset data to Cassandra.
+- Deployment options for local environment and ICP.
 
-### Requirements
-* [Maven](https://maven.apache.org/install.html)
-* Java 8: Any compliant JVM should work.
-  * [Java 8 JDK from Oracle](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-  * [Java 8 JDK from IBM (AIX, Linux, z/OS, IBM i)](http://www.ibm.com/developerworks/java/jdk/),
-    or [Download a Liberty server package](https://developer.ibm.com/assets/wasdev/#filter/assetTypeFilters=PRODUCT)
-    that contains the IBM JDK (Windows, Linux)
+## How it works
 
-### Configuration
-The application is configured to provide JAX-RS REST capabilities, JNDI, JSON parsing and Contexts and Dependency Injection (CDI).
+The Asset Management Microservice serves 'IBM Cloud Native Reference Architecture' suite, available at
+https://github.com/ibm-cloud-architecture/refarch-asset-analytics. Though it is a part of a bigger application, 
+the Asset Management service is itself an application that persists the data of assets to Cassandra database.
 
-These capabilities are provided through dependencies in the pom.xml file and Liberty features enabled in the server config file found in `src/main/liberty/config/server.xml`.
+<p align="center">
+    <img src="images/assetmgr.png">
+</p>
 
-### Project contents
-The microservice application has a health endpoint which is accessible at `<host>:<port>/assetmanager/health`. The context root is set in the `src/main/webapp/WEB-INF/ibm-web-ext.xml` file. The ports are set in the pom.xml file and exposed to the CLI in the cli-config.yml file.
+## API Endpoints
 
-The project contains IBM Cloud specific files that are used to deploy the application as part of a IBM Cloud DevOps flow. The `.bluemix` directory contains files used to define the IBM Cloud toolchain and pipeline for your application. The `manifest.yml` file specifies the name of your application in IBM Cloud, the timeout value during deployment and which services to bind to.
+#### Create an asset
 
+```
+POST   /assetmanager/assets
+``` 
+Asset object must be passed as JSON object in the request body with the following format:
 
-Credentials are either taken from the VCAP_SERVICES environment variable that IBM Cloud provides or from environment variables passed in by JNDI (see the server config file `src/main/liberty/config/server.xml`).
+```
+{
+ "id":"1", 
+ "os":"testdata",
+ "type":"testdata",
+ "ipAddress": "0.0.0.0",
+ "version": "1.0.0",
+ "antivirus":"testdata"
+}
+```
 
-### Run
+On success, `Asset with ID 1 got created` is returned.
 
-To build and run the application:
-1. `mvn install`
-1. `mvn liberty:run-server`
+#### Return all assets 
 
+```
+GET     /assetmanager/assets
+```
+On success, returns all the assets in the data store.
 
-To run the application in Docker use the Docker file called `Dockerfile`. If you do not want to install Maven locally you can use `Dockerfile-tools` to build a container with Maven installed.
+#### Return all assets by id
 
-### Endpoints
+```
+GET     /assetmanager/assets/{id}
+```
 
-The application exposes the following endpoints:
-* Health endpoint: `<host>:<port>/<contextRoot>/health`
+On success, Returns all assets available in the datastore based on `Id`.
 
-The context root is set in the `src/main/webapp/WEB-INF/ibm-web-ext.xml` file. The ports are set in the pom.xml file and exposed to the CLI in the cli-config.yml file.
+#### Return all assets by type
 
-### Notices
+```
+GET     /assetmanager/assets/type/{type}
+```
 
-This project was generated using:
-* generator-ibm-java v5.11.0
-* ibm-java-codegen-common v3.0.1
-* generator-ibm-service-enablement v0.7.0
-* generator-ibm-cloud-enablement v^0.13.7
-* generator-ibm-java-liberty v8.6.2
+On success, Returns all assets available in the datastore based on `Type`.
+
+#### Update an asset
+
+```
+PUT     /assetmanager/assets/{id}
+```
+
+Asset object must be passed as JSON object in the request body with the following format:
+
+```
+{
+ "id":"1", 
+ "os":"updtestdata",
+ "type":"updtestdata",
+ "ipAddress": "0.0.0.0",
+ "version": "1.0.0",
+ "antivirus":"updtestdata"
+}
+```
+
+On success, `Asset with ID 1 got updated` is returned.
+
+#### Delete an asset
+
+```
+DELETE     /assetmanager/assets/{id}
+```
+
+On success, `Asset with ID 1 got deleted` is returned.
+
+### Implementation
+
+#### [MicroProfile](https://microprofile.io/)
+
+MicroProfile is an open platform that optimizes the Enterprise Java for microservices architecture. In this application, 
+we use [**MicroProfile 1.3**](https://github.com/eclipse/microprofile-bom).
+
+You can make use of this feature by including this dependency in Maven.
+
+```
+<dependency>
+    <groupId>org.eclipse.microprofile</groupId>
+    <artifactId>microprofile</artifactId>
+    <version>1.3</version>
+    <type>pom</type>
+    <scope>provided</scope>
+</dependency>
+```
+
+You should also include a feature in [server.xml](https://github.com/ibm-cloud-architecture/refarch-cloudnative-micro-orders/blob/microprofile/src/main/liberty/config/server.xml).
+
+```
+<server description="Sample Liberty server">
+
+  <featureManager>
+      <feature>microprofile-1.3</feature>
+  </featureManager>
+
+  <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
+      id="defaultHttpEndpoint" host="*" />
+
+</server>
+```
+
+### Features
+
+1. Java SE 8 - Used Java Programming language
+
+2. [CDI 1.2](https://jcp.org/en/jsr/detail?id=346) - Used CDI for typesafe dependency injection
+
+3. [JAX-RS 2.0.1](https://jcp.org/en/jsr/detail?id=339) - 
+JAX-RS is used for providing both standard client and server APIs for RESTful communication by the MicroProfile applications.
+
+4. [Eclipse MicroProfile Config](https://github.com/eclipse/microprofile-config) - 
+Configuration data comes from different sources like system properties, 
+system environment variables, *.properties etc. These values may change dynamically. 
+This feature enables us to pick up configured values immediately after they got changed.
+
+    The config values are sorted according to their ordinal. We can override the less important values from outside. 
+    The config sources three locations by default, and the list below shows their rank in priority from most to least:
+
+    - System.getProperties()
+    - System.getenv()
+    - all META-INF/microprofile-config.properties files on the ClassPath.
+
+    In our sample application, we obtained the configuration programmatically.
+
+## Deploying the App
+
+You can deploy the application locally on your system or on IBM Cloud Private based on your convenience.
+
+### IBM Cloud Private
+
+To deploy it on IBM Cloud Private, please follow the instructions provided 
+[here](https://github.com/Hemankita/refarch-asset-manager-microservice/blob/microprofile/docs/icp.md).
+
+### Run Asset Service locally
+
+To deploy the app locally and test the individual service, please follow the instructions provided 
+[here](https://github.com/Hemankita/refarch-asset-manager-microservice/blob/microprofile/docs/local.md).
+
+## References
+
+1. [MicroProfile](https://microprofile.io/)
+2. [MicroProfile Config on Liberty](https://www.ibm.com/support/knowledgecenter/en/SSAW57_liberty/com.ibm.websphere.wlp.nd.multiplatform.doc/ae/twlp_microprofile_appconfig.html)
