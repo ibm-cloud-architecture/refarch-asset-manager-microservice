@@ -6,6 +6,7 @@
 * [Pre-requisites](#pre-requisites)
 * [Set up your environment](#set-up-your-environment)
 * [Installing Microclimate on ICP](#installing-microclimate-on-icp)
+* [Set Up Cassandra](#set-up-cassandra)
 * [Integrating the App](#integrating-the-app)
 * [Validate the App](#validate-the-app)
 * [Delete the App](#delete-the-app)
@@ -131,7 +132,27 @@ helm install --name microclimate --namespace greencompute --set global.rbac.serv
     <img src="images/mc_home.png">
 </p>
 
+## Set Up Cassandra
+
+1. Add the `helm` package repository containing our `cassandra` instance.
+
+```
+helm repo add cassandra https://raw.githubusercontent.com/ibm-cloud-architecture/refarch-asset-manager-microservice/microprofile/docs/charts/services
+```
+
+2. Install Cassandra on ICP in `greencompute` namespace. 
+
+```
+helm install --name cassandra cassandra/cassandra --namespace greencompute --tls
+```
+
+Note: If using IBM Cloud Private version older than 2.1.0.2, use `helm install --name cassandra cassandra/cassandra --namespace greencompute`
+
+After a minute or so, the containers will be deployed to the cluster.
+
 ## Integrating the App
+
+
 
 
 
