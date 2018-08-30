@@ -36,19 +36,19 @@ If using IBM Cloud Private version 2.1.0.2 or newer, we recommend you to follow 
 2. Log in to the IBM Cloud Private.
 
 <p align="center">
-    <img src="images/icp_dashboard.png">
+    <img src="docs/images/icp_dashboard.png">
 </p>
 
 3. Go to `admin > Configure Client`.
 
 <p align="center">
-    <img width="300" height="300" src="images/client_config.png">
+    <img width="300" height="300" src="docs/images/client_config.png">
 </p>
 
 4. Grab the kubectl configuration commands.
 
 <p align="center">
-    <img src="images/kube_cmds.png">
+    <img src="docs/images/kube_cmds.png">
 </p>
 
 5. Run those commands in your terminal.
@@ -128,7 +128,7 @@ helm install --name microclimate --namespace greencompute --set global.rbac.serv
 7. It takes some time to get all its components up. After sometime, you will be able to access the Microclimate portal at the this URL `https://microclimate.<PROXY_IP>.nip.io`
 
 <p align="center">
-    <img src="images/mc_home.png">
+    <img src="docs/images/mc_home.png">
 </p>
 
 ## Integrating the App
