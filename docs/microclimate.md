@@ -128,7 +128,7 @@ helm install --name microclimate --namespace greencompute --set global.rbac.serv
 7. It takes some time to get all its components up. After sometime, you will be able to access the Microclimate portal at the this URL `https://microclimate.<PROXY_IP>.nip.io`
 
 <p align="center">
-    <img src="docs/images/mc_home.png">
+    <img src="images/mc_home.png">
 </p>
 
 ## Integrating the App
