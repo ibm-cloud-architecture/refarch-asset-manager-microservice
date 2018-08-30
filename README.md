@@ -34,12 +34,11 @@ the Asset Management service is itself an application that persists the data of 
 
 ## API Endpoints
 
+#### Create an asset
+
 ```
 POST   /assetmanager/assets
-```
-
-- Create an asset. 
-
+``` 
 Asset object must be passed as JSON object in the request body with the following format:
 
 ```
@@ -55,29 +54,34 @@ Asset object must be passed as JSON object in the request body with the followin
 
 On success, `Asset with ID 1 got created` is returned.
 
+#### Return all assets 
+
 ```
 GET     /assetmanager/assets
 ```
+On success, returns all the assets in the data store.
 
-- Returns all assets. 
+#### Return all assets by id
 
 ```
 GET     /assetmanager/assets/{id}
 ```
 
-- Returns all assets based on `Id`. 
+On success, Returns all assets available in the datastore based on `Id`.
+
+#### Return all assets by type
 
 ```
 GET     /assetmanager/assets/type/{type}
 ```
 
-- Returns all assets based on `type`.
+On success, Returns all assets available in the datastore based on `Type`.
+
+#### Update an asset
 
 ```
 PUT     /assetmanager/assets/{id}
 ```
-
-- Update an asset.
 
 Asset object must be passed as JSON object in the request body with the following format:
 
@@ -94,11 +98,11 @@ Asset object must be passed as JSON object in the request body with the followin
 
 On success, `Asset with ID 1 got updated` is returned.
 
+#### Delete an asset
+
 ```
 DELETE     /assetmanager/assets/{id}
 ```
-
-- Delete an asset.
 
 On success, `Asset with ID 1 got deleted` is returned.
 
