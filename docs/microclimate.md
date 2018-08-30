@@ -97,7 +97,7 @@ kubectl create serviceaccount gc-micro-sa --namespace greencompute
 3. Create *secrets* for docker registry and helm.
 
 ```
-kubectl create secret docker-registry microclimate-registry-secret --docker-server mycluster.icp:8500 --docker-username admin --docker-password S0meThingSafe --docker-email null --namespace greencompute
+kubectl create secret docker-registry microclimate-registry-secret --docker-server mycluster.icp:8500 --docker-username <username> --docker-password <password> --docker-email null --namespace greencompute
 kubectl create secret generic microclimate-helm-secret --from-file=cert.pem=$HELM_HOME/cert.pem --from-file=ca.pem=$HELM_HOME/ca.pem --from-file=key.pem=$HELM_HOME/key.pem --namespace greencompute
 ```
 
