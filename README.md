@@ -11,6 +11,7 @@
 * [Deploying the App](#deploying-the-app)
     + [IBM Cloud Private](#ibm-cloud-private)
     + [Run Asset Service locally](#run-asset-service-locally)
+* [DevOps Strategy](#devops-strategy)
 * [References](#references)
 
 ## Introduction
@@ -170,14 +171,30 @@ You can deploy the application locally on your system or on IBM Cloud Private ba
 ### IBM Cloud Private
 
 To deploy it on IBM Cloud Private, please follow the instructions provided 
-[here](https://github.com/Hemankita/refarch-asset-manager-microservice/blob/microprofile/docs/icp.md).
+[here](https://github.com/ibm-cloud-architecture/refarch-asset-manager-microservice/blob/microprofile/docs/icp.md).
 
 ### Run Asset Service locally
 
 To deploy the app locally and test the individual service, please follow the instructions provided 
-[here](https://github.com/Hemankita/refarch-asset-manager-microservice/blob/microprofile/docs/local.md).
+[here](https://github.com/ibm-cloud-architecture/refarch-asset-manager-microservice/blob/microprofile/docs/local.md).
+
+## DevOps strategy
+
+You can use [Microclimate](https://microclimate-dev2ops.github.io/) as your end-to-end development environment. It helps us from coding the application locally to deploying the application using a pipeline. 
+
+Using this, you can
+
+- Have a simple containerized dev environment
+- Load test your application with JMeter
+- Templates are in built
+- Built in logging
+- Easy deployments
+- End-to-end environment from development to deployment.
+
+To integrate the app with [Microclimate](https://microclimate-dev2ops.github.io/) on IBM Cloud Private, please follow the instructions [here](https://github.com/ibm-cloud-architecture/refarch-asset-manager-microservice/blob/microprofile/docs/microclimate.md).
 
 ## References
 
 1. [MicroProfile](https://microprofile.io/)
 2. [MicroProfile Config on Liberty](https://www.ibm.com/support/knowledgecenter/en/SSAW57_liberty/com.ibm.websphere.wlp.nd.multiplatform.doc/ae/twlp_microprofile_appconfig.html)
+3. [Microclimate](https://microclimate-dev2ops.github.io/)
