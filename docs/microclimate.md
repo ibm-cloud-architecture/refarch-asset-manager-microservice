@@ -190,7 +190,73 @@ Click `Finish Validation`
     <img src="images/build.png">
 </p>
 
+5. Wait till the applications starts `Running`.
 
+<p align="center">
+    <img src="images/app_run.png">
+</p>
+
+## Validate the App
+
+1. You can edit the code using `Edit code` option.
+
+<p align="center">
+    <img src="images/edit_app.png">
+</p>
+
+2. You can access the build logs using `Build logs`
+
+<p align="center">
+    <img src="images/build_logs.png">
+</p>
+
+3. You can check the app using `Open App`
+
+<p align="center">
+    <img src="images/open_app.png">
+</p>
+
+4. You can see the logs using `App logs`
+
+<p align="center">
+    <img src="images/app_logs.png">
+</p>
+
+5. You can use the pipeline as below.
+
+<p align="center">
+    <img src="images/pipeline_setup.png">
+</p>
+
+<p align="center">
+    <img src="images/create_pipeline.png">
+</p>
+
+<p align="center">
+    <img src="images/jenkins.png">
+</p>
+
+<p align="center">
+    <img src="images/jenkins_pipeline.png">
+</p>
+
+<p align="center">
+    <img src="images/mc_pipeline.png">
+</p>
+
+## Delete the App
+
+You can delete the app as follows.
+
+<p align="center">
+    <img width="300" height="300" src="images/delete.png">
+</p>
+
+## References
+
+1. [Microclimate](https://microclimate-dev2ops.github.io/)
+2. [Microclimate installation on ICP](https://github.com/IBM/charts/blob/master/stable/ibm-microclimate/README.md)
+3. [Microclimate Non-default namespace installation instructions on ICP](https://microclimate-dev2ops.github.io/installndnamespace)
 
 
 
