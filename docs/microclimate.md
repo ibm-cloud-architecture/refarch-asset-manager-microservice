@@ -98,7 +98,7 @@ kubectl create serviceaccount gc-micro-sa --namespace greencompute
 3. Create *secrets* for docker registry and helm.
 
 ```
-kubectl create secret docker-registry microclimate-registry-secret --docker-server mycluster.icp:8500 --docker-username <username> --docker-password <password> --docker-email null --namespace greencompute
+kubectl create secret docker-registry microclimate-registry-secret --docker-server <server> --docker-username <username> --docker-password <password> --docker-email null --namespace greencompute
 kubectl create secret generic microclimate-helm-secret --from-file=cert.pem=$HELM_HOME/cert.pem --from-file=ca.pem=$HELM_HOME/ca.pem --from-file=key.pem=$HELM_HOME/key.pem --namespace greencompute
 ```
 
@@ -123,7 +123,7 @@ kubectl apply -f micro.yaml
 6. Istall the microclimate on ICP using the helm command as below.
 
 ```
-helm install --name microclimate --namespace greencompute --set global.rbac.serviceAccountName=gc-micro-sa,jenkins.rbac.serviceAccountName=gc-devops-sa,hostName=microclimate.<PROXY_IP>.nip.io,jenkins.Pipeline.Registry.Url=mycluster.icp:8500/greencompute,jenkins.Master.HostName=jenkins.<PROXY_IP>.nip.io ibm-charts/ibm-microclimate --tls
+helm install --name microclimate --namespace greencompute --set global.rbac.serviceAccountName=gc-micro-sa,jenkins.rbac.serviceAccountName=gc-devops-sa,hostName=microclimate.<PROXY_IP>.nip.io,jenkins.Pipeline.Registry.Url=<docker_server>/greencompute,jenkins.Master.HostName=jenkins.<PROXY_IP>.nip.io ibm-charts/ibm-microclimate --tls
 ```
 
 7. It takes some time to get all its components up. After sometime, you will be able to access the Microclimate portal at the this URL `https://microclimate.<PROXY_IP>.nip.io`
@@ -152,6 +152,111 @@ After a minute or so, the containers will be deployed to the cluster.
 
 ## Integrating the App
 
+1. Fork this repository and change the default branch to `microclimate`. 
+
+Microclimate automatically tries to pick the project in the `default` branch from the github repository. Since our `master` is pointing to different implementations and it is just documentation, we need to change the branch to pick up the project. So, to demonstrate how microclimate picks it up, we have a branch named `microclimate`. Once you fork the repo, make sure to change the default branch to `microclimate` for the microclimate to identify the project and pick it up. In `microclimate` branch, we used our `microprofile` reference implementation.
+
+2. Now, lets open the microclimate using browser which we set up previously.
+
+<p align="center">
+    <img src="images/mc_home.png">
+</p>
+
+Click `Import project` to get your project in.
+
+3. Get the Git URL for your repository.
+
+<p align="center">
+    <img src="images/imp_prj.png">
+</p>
+
+Click `Next` here and you will see something like this.
+
+<p align="center">
+    <img src="images/imp_prj_details.png">
+</p>
+
+Now click `Finish import and validate`.
+
+<p align="center">
+    <img src="images/validate.png">
+</p>
+
+Click `Finish Validation`
+
+4. It starts building automatically unless you disable the project.
+
+<p align="center">
+    <img src="images/build.png">
+</p>
+
+5. Wait till the applications starts `Running`.
+
+<p align="center">
+    <img src="images/app_run.png">
+</p>
+
+## Validate the App
+
+1. You can edit the code using `Edit code` option.
+
+<p align="center">
+    <img src="images/edit_app.png">
+</p>
+
+2. You can access the build logs using `Build logs`
+
+<p align="center">
+    <img src="images/build_logs.png">
+</p>
+
+3. You can check the app using `Open App`
+
+<p align="center">
+    <img src="images/open_app.png">
+</p>
+
+4. You can see the logs using `App logs`
+
+<p align="center">
+    <img src="images/app_logs.png">
+</p>
+
+5. You can use the pipeline as below.
+
+<p align="center">
+    <img src="images/pipeline_setup.png">
+</p>
+
+<p align="center">
+    <img src="images/create_pipeline.png">
+</p>
+
+<p align="center">
+    <img src="images/jenkins.png">
+</p>
+
+<p align="center">
+    <img src="images/jenkins_pipeline.png">
+</p>
+
+<p align="center">
+    <img src="images/mc_pipeline.png">
+</p>
+
+## Delete the App
+
+You can delete the app as follows.
+
+<p align="center">
+    <img width="300" height="300" src="images/delete.png">
+</p>
+
+## References
+
+1. [Microclimate](https://microclimate-dev2ops.github.io/)
+2. [Microclimate installation on ICP](https://github.com/IBM/charts/blob/master/stable/ibm-microclimate/README.md)
+3. [Microclimate Non-default namespace installation instructions on ICP](https://microclimate-dev2ops.github.io/installndnamespace)
 
 
 
