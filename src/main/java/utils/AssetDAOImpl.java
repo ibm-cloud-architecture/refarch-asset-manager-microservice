@@ -13,7 +13,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 
 import model.Asset;
 
-public class AssetDAOImpl {
+public class AssetDAOImpl implements AssetDAO {
 
 	private final Session session;
 
@@ -25,6 +25,7 @@ public class AssetDAOImpl {
 	}
 
    //Retrieve all Assets
+   @Override
    public List<Asset> getAssets(){
 
        List<Asset> assets = new ArrayList<>();
@@ -70,6 +71,7 @@ public class AssetDAOImpl {
    }
    
    //Retrieve Assets by id
+   @Override
    public List<Asset> getAssetsById(String id) {
 	   
 	   List<Asset> assets = new ArrayList<>();
@@ -116,6 +118,7 @@ public class AssetDAOImpl {
    }
    
    //Retrieve Assets by type
+   @Override
    public List<Asset> getAssetsByType(String type) {
 	   
 	   List<Asset> assets = new ArrayList<>();
@@ -162,6 +165,7 @@ public class AssetDAOImpl {
    }
    
    //Create an Asset
+   @Override
    public String createAsset(Asset asset) {
 	   
 	   session.executeAsync("insert into "+cassandra_keyspace+ "."+cassandra_table
@@ -175,6 +179,7 @@ public class AssetDAOImpl {
    }
    
    //Update an Asset
+   @Override
    public String updateAsset(Asset asset, String id) {
 	   
 	   session.executeAsync("update assetmonitoring.assets set os='"+asset.getOs()+"', type='"+asset.getType()+"',"
@@ -187,6 +192,7 @@ public class AssetDAOImpl {
    }
    
    //Delete an asset
+   @Override
    public String deleteAsset(String id) {
 	   
 	   session.executeAsync("delete from assetmonitoring.assets WHERE id='"+id+"'");
