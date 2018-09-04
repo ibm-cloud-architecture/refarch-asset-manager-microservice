@@ -17,11 +17,6 @@ public class AssetDAOImpl {
 
 	private final Session session;
 
-//	private Config config = ConfigProvider.getConfig();
-
-//	private final String cassandra_keyspace = config.getValue("cassandra_keyspace", String.class);
-//	private final String cassandra_table = config.getValue("cassandra_table", String.class);
-
 	private final String cassandra_keyspace = "assetmonitoring";
 	private final String cassandra_table = "assets";
 
@@ -70,8 +65,6 @@ public class AssetDAOImpl {
     	   assets.add(asset);
        }
        
-       System.out.println(""+assets);
-       
        return assets;
        
    }
@@ -118,8 +111,6 @@ public class AssetDAOImpl {
     	   
        }
        
-       System.out.println(""+assets);
-       
        return assets;
        
    }
@@ -165,8 +156,6 @@ public class AssetDAOImpl {
 		   assets.add(asset);
 		   
 	   }
-	   
-	   System.out.println(""+assets);
 	   
 	   return assets;
 	   
