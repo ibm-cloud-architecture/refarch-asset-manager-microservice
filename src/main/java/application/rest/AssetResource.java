@@ -12,6 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import model.Asset;
 import utils.CassandraConnection;
@@ -52,28 +53,56 @@ public class AssetResource {
 	@POST
 	@Path("/assets")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
-	public String createAsset(Asset asset) {
+    @Produces(MediaType.APPLICATION_JSON)
+	public Response createAsset(Asset asset) {
 		assetRepo.createAsset(asset);
-		return "Asset with ID "+asset.getId()+" got created";
+		try {
+			return Response.ok(asset, MediaType.APPLICATION_JSON).build();
+		} catch(Exception ex) {
+		    return Response.status(500).entity(asset).build();
+		}
 	}
 
 	@PUT
 	@Path("/assets/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.TEXT_PLAIN)
-	public String updateAsset(Asset asset, @PathParam("id") String id) {
-		assetRepo.updateAsset(asset, id);
-		return "Asset with ID "+asset.getId()+" got updated";
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateAsset(Asset asset, @PathParam("id") String id) {
+		if(id == null || id.trim().length() == 0) {
+	        return Response.serverError().entity("id cannot be null").build();
+	    }
+	    if(asset.getId().equals(id) && !assetRepo.getAssetById(id).isEmpty()) {
+	    	assetRepo.updateAsset(asset, id);   
+	    }
+	    else{
+	    	return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("{\"ID\":\"Invalid\"}").build();
+	    }
+		try {
+			return Response.ok(asset, MediaType.APPLICATION_JSON).build();
+		} catch(Exception ex) {
+		    return Response.status(500).entity(asset).build();
+		}
 	}
 
 	@DELETE
 	@Path("/assets/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String deleteAsset(@PathParam("id") String id) {
-		assetRepo.deleteAsset(id);
-		return "Asset with ID "+id+" got deleted";
+	public Response deleteAsset(@PathParam("id") String id) {
+		if(id == null || id.trim().length() == 0) {
+	        return Response.serverError().entity("id cannot be null").build();
+	    }
+	    if(!assetRepo.getAssetById(id).isEmpty()) {
+	    	assetRepo.deleteAsset(id);   
+	    }
+	    else{
+	    	return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("{\"ID\":\"Invalid\"}").build();
+	    }
+		try {
+			return Response.ok("{\"Asset\":\"Deleted\"}", MediaType.APPLICATION_JSON).build();
+		} catch(Exception ex) {
+		    return Response.status(500).entity("Deleted the asset "+id).build();
+		}
 	}
 
 

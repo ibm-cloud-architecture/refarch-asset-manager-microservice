@@ -1,5 +1,7 @@
 package application.rest;
 
+import javax.ws.rs.core.Response;
+
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.testng.Assert;
@@ -91,9 +93,9 @@ public class AssetServiceTest extends AbstractTest {
 
 		Asset asset = new Asset("0", "test", "test", "test", "0.0.0.0", "1.0.0");
 		
-        String create = assetRepo.createAsset(asset);
+        Response create = assetRepo.createAsset(asset);
 		
-		Assert.assertTrue(create.contains(asset.getId()));
+		Assert.assertEquals(create.getStatus(),200);
 
 	}
 	
@@ -112,9 +114,9 @@ public class AssetServiceTest extends AbstractTest {
 
 		Asset asset = new Asset("3", "UpdWindow", "UpdWindow", "UpdKaspersky", "1.1.1.1", "3.0.1");
 		
-        String create = assetRepo.updateAsset(asset, "3");
+        Response update = assetRepo.updateAsset(asset, "3");
 		
-		Assert.assertTrue(create.contains(asset.getId()));
+		Assert.assertEquals(update.getStatus(),200);
 
 	}
 	
@@ -130,12 +132,10 @@ public class AssetServiceTest extends AbstractTest {
 		Mockito.doNothing().when(cc).close();
 
 		AssetService assetRepo = new AssetService(cc);
-
-		Asset asset = new Asset("4", "Window", "Window", "Kaspersky", "0.0.0.0", "4.0.0");
 		
-        String delete = assetRepo.deleteAsset("4");
+        Response delete = assetRepo.deleteAsset("4");
 		
-		Assert.assertTrue(delete.contains(asset.getId()));
+        Assert.assertEquals(delete.getStatus(),200);
 
 	}
 	

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.ResultSetFuture;
 import com.datastax.driver.core.Row;
@@ -166,7 +169,7 @@ public class AssetDAOImpl implements AssetDAO {
    
    //Create an Asset
    @Override
-   public String createAsset(Asset asset) {
+   public Response createAsset(Asset asset) {
 	   
 	   session.executeAsync("insert into "+cassandra_keyspace+ "."+cassandra_table
 				+ "(id, os, type, ipaddress, version, antivirus, current, rotation, pressure, temperature, latitude, longitude) "
@@ -174,30 +177,30 @@ public class AssetDAOImpl implements AssetDAO {
 				+ " '"+asset.getAntivirus()+"', "+asset.getCurrent()+", "+asset.getRotation()+", "+asset.getPressure()+", "+asset.getTemperature()+""
 				+ ", "+asset.getLatitude()+", "+asset.getLongitude()+");");
 	   
-	   return "Asset with ID "+asset.getId()+" got created";
-	   
+	   return Response.ok(asset, MediaType.APPLICATION_JSON).build(); 
+	      
    }
    
    //Update an Asset
    @Override
-   public String updateAsset(Asset asset, String id) {
+   public Response updateAsset(Asset asset, String id) {
 	   
 	   session.executeAsync("update assetmonitoring.assets set os='"+asset.getOs()+"', type='"+asset.getType()+"',"
 				+ " ipaddress='"+asset.getIpAddress()+"', version='"+asset.getVersion()+"', antivirus='"+asset.getAntivirus()+"',"
 				+ " current="+asset.getCurrent()+", rotation="+asset.getRotation()+", pressure="+asset.getPressure()+", temperature="+asset.getTemperature()+""
 				+ ", latitude="+asset.getLatitude()+", longitude="+asset.getLongitude()+" where id='"+id+"'");
 	   
-	   return "Asset with ID "+asset.getId()+" got updated";
+	   return Response.ok(asset, MediaType.APPLICATION_JSON).build(); 
 	   
    }
    
    //Delete an asset
    @Override
-   public String deleteAsset(String id) {
+   public Response deleteAsset(String id) {
 	   
 	   session.executeAsync("delete from assetmonitoring.assets WHERE id='"+id+"'");
 	   
-	   return "Asset with ID "+id+" got deleted";
+	   return Response.ok("{\"Asset\":\"Deleted\"}", MediaType.APPLICATION_JSON).build();
 
 	}
 
