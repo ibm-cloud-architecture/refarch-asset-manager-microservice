@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.ResultSetFuture;
 import com.datastax.driver.core.Row;
@@ -13,14 +16,9 @@ import com.google.common.util.concurrent.ListenableFuture;
 
 import model.Asset;
 
-public class AssetDAOImpl {
+public class AssetDAOImpl implements AssetDAO {
 
 	private final Session session;
-
-//	private Config config = ConfigProvider.getConfig();
-
-//	private final String cassandra_keyspace = config.getValue("cassandra_keyspace", String.class);
-//	private final String cassandra_table = config.getValue("cassandra_table", String.class);
 
 	private final String cassandra_keyspace = "assetmonitoring";
 	private final String cassandra_table = "assets";
@@ -30,6 +28,7 @@ public class AssetDAOImpl {
 	}
 
    //Retrieve all Assets
+   @Override
    public List<Asset> getAssets(){
 
        List<Asset> assets = new ArrayList<>();
@@ -70,13 +69,12 @@ public class AssetDAOImpl {
     	   assets.add(asset);
        }
        
-       System.out.println(""+assets);
-       
        return assets;
        
    }
    
    //Retrieve Assets by id
+   @Override
    public List<Asset> getAssetsById(String id) {
 	   
 	   List<Asset> assets = new ArrayList<>();
@@ -118,13 +116,12 @@ public class AssetDAOImpl {
     	   
        }
        
-       System.out.println(""+assets);
-       
        return assets;
        
    }
    
    //Retrieve Assets by type
+   @Override
    public List<Asset> getAssetsByType(String type) {
 	   
 	   List<Asset> assets = new ArrayList<>();
@@ -166,14 +163,13 @@ public class AssetDAOImpl {
 		   
 	   }
 	   
-	   System.out.println(""+assets);
-	   
 	   return assets;
 	   
    }
    
    //Create an Asset
-   public String createAsset(Asset asset) {
+   @Override
+   public Response createAsset(Asset asset) {
 	   
 	   session.executeAsync("insert into "+cassandra_keyspace+ "."+cassandra_table
 				+ "(id, os, type, ipaddress, version, antivirus, current, rotation, pressure, temperature, latitude, longitude) "
@@ -181,28 +177,30 @@ public class AssetDAOImpl {
 				+ " '"+asset.getAntivirus()+"', "+asset.getCurrent()+", "+asset.getRotation()+", "+asset.getPressure()+", "+asset.getTemperature()+""
 				+ ", "+asset.getLatitude()+", "+asset.getLongitude()+");");
 	   
-	   return "Asset with ID "+asset.getId()+" got created";
-	   
+	   return Response.ok(asset, MediaType.APPLICATION_JSON).build(); 
+	      
    }
    
    //Update an Asset
-   public String updateAsset(Asset asset, String id) {
+   @Override
+   public Response updateAsset(Asset asset, String id) {
 	   
 	   session.executeAsync("update assetmonitoring.assets set os='"+asset.getOs()+"', type='"+asset.getType()+"',"
 				+ " ipaddress='"+asset.getIpAddress()+"', version='"+asset.getVersion()+"', antivirus='"+asset.getAntivirus()+"',"
 				+ " current="+asset.getCurrent()+", rotation="+asset.getRotation()+", pressure="+asset.getPressure()+", temperature="+asset.getTemperature()+""
 				+ ", latitude="+asset.getLatitude()+", longitude="+asset.getLongitude()+" where id='"+id+"'");
 	   
-	   return "Asset with ID "+asset.getId()+" got updated";
+	   return Response.ok(asset, MediaType.APPLICATION_JSON).build(); 
 	   
    }
    
    //Delete an asset
-   public String deleteAsset(String id) {
+   @Override
+   public Response deleteAsset(String id) {
 	   
 	   session.executeAsync("delete from assetmonitoring.assets WHERE id='"+id+"'");
 	   
-	   return "Asset with ID "+id+" got deleted";
+	   return Response.ok("{\"Asset\":\"Deleted\"}", MediaType.APPLICATION_JSON).build();
 
 	}
 

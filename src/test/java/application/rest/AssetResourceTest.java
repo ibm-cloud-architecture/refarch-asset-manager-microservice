@@ -3,6 +3,9 @@ package application.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -66,27 +69,32 @@ public class AssetResourceTest extends AbstractTest  {
 	public void createAssetTest(){
 		
 		Asset asset = new Asset("0", "test", "test", "test", "0.0.0.0", "1.0.0");
-		Mockito.when(assetRepo.createAsset(Mockito.anyObject())).thenReturn("Asset with ID "+asset.getId()+" got created");
-		String ast = assetController.createAsset(asset);
-		Assert.assertTrue(ast.contains(asset.getId()));
+		Mockito.when(assetRepo.createAsset(Mockito.anyObject())).thenReturn(Response.ok(asset, MediaType.APPLICATION_JSON).build());
+		Response ast = assetController.createAsset(asset);
+		Assert.assertEquals(ast.getStatus(),200);
 	}
 	
 	@Test
 	public void updateAssetTest(){
 		
 		Asset asset = new Asset("3", "UpdWindow", "UpdWindow", "UpdKaspersky", "1.1.1.1", "3.0.1");
-		Mockito.when(assetRepo.updateAsset(Mockito.anyObject(), Mockito.anyString())).thenReturn("Asset with ID "+asset.getId()+" got updated");
-		String ast = assetController.updateAsset(asset, "3");
-		Assert.assertTrue(ast.contains(asset.getId()));
+		List<Asset> asst = new ArrayList<>();
+        asst.add(asset);
+		Mockito.when(assetRepo.getAssetById(Mockito.anyString())).thenReturn(asst);
+		Mockito.when(assetRepo.updateAsset(Mockito.anyObject(), Mockito.anyString())).thenReturn(Response.ok(asset, MediaType.APPLICATION_JSON).build());
+		Response ast = assetController.updateAsset(asset, "3");
+		Assert.assertEquals(ast.getStatus(),200);
 	}
 	
 	@Test
 	public void deleteAssetTest(){
-		
 		Asset asset = new Asset("4", "Window", "Window", "Kaspersky", "0.0.0.0", "4.0.0");
-		Mockito.when(assetRepo.deleteAsset(Mockito.anyString())).thenReturn("Asset with ID "+asset.getId()+" got deleted");
-		String ast = assetController.deleteAsset("4");
-		Assert.assertTrue(ast.contains(asset.getId()));
+		List<Asset> asst = new ArrayList<>();
+        asst.add(asset);
+		Mockito.when(assetRepo.getAssetById(Mockito.anyString())).thenReturn(asst);
+		Mockito.when(assetRepo.deleteAsset(Mockito.anyString())).thenReturn(Response.ok("{\"Asset\":\"Deleted\"}", MediaType.APPLICATION_JSON).build());
+		Response ast = assetController.deleteAsset("4");
+		Assert.assertEquals(ast.getStatus(),200);
 	}
 
 }
