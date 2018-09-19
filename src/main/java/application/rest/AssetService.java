@@ -3,6 +3,9 @@ package application.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import com.datastax.driver.core.Session;
 
 import model.Asset;
@@ -65,7 +68,7 @@ public class AssetService {
 		
 	}
 
-	public String createAsset(Asset asset) {
+	public Response createAsset(Asset asset) {
 		
 		cc.getConnection();
 	    Session session = cc.getSession();
@@ -76,11 +79,11 @@ public class AssetService {
 	    
 	    cc.close();
 	    
-	    return "Asset with ID "+asset.getId()+" got created";
+	    return Response.ok(asset, MediaType.APPLICATION_JSON).build(); 
 		
 	}
 
-	public String updateAsset(Asset asset, String id) {
+	public Response updateAsset(Asset asset, String id) {
 		
 		cc.getConnection();
 		Session session = cc.getSession();
@@ -91,11 +94,11 @@ public class AssetService {
 		
 		cc.close();
 		
-		return "Asset with ID "+asset.getId()+" got updated";
+		return Response.ok(asset, MediaType.APPLICATION_JSON).build(); 
 		
 	}
 
-	public String deleteAsset(String id) {
+	public Response deleteAsset(String id) {
 		
 		cc.getConnection();
 		Session session = cc.getSession();
@@ -106,7 +109,7 @@ public class AssetService {
 		
 		cc.close();
 		
-		return "Asset with ID "+id+" got updated";
+		return Response.ok("{\"Asset\":\"Deleted\"}", MediaType.APPLICATION_JSON).build();
 		
 	}
 

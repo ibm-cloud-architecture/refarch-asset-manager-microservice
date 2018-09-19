@@ -2,10 +2,14 @@ package utils;
 
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.datastax.driver.core.Session;
 
 public class TableCreation {
+	
+	Logger logger = LoggerFactory.getLogger(KeySpaceCreation.class);
 	
 	private Config config = ConfigProvider.getConfig();
 	private final String cassandra_keyspace = config.getValue("cassandra_keyspace", String.class);
@@ -26,11 +30,11 @@ public class TableCreation {
 	    
 	    //Create table
 	    session.execute(createAssetCql);
-	    System.out.println("Table created");
+	    logger.info("Table "+cassandra_table);
 	    
 	    //Create indexes
 	    session.execute(createIndexType);
-	    System.out.println("Indexes created");
+	    logger.info("Index on type");
 	    
 	    cc.close();
 	}

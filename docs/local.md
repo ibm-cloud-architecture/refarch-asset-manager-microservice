@@ -18,7 +18,7 @@ To run Cassandra on docker locally, run the below commands.
 
 3. To access cqlsh, run the below command.
 
-`docker exec -ti cas1 cqlsh`
+`docker exec -ti cassandra cqlsh`
 
 ## Building the app
 

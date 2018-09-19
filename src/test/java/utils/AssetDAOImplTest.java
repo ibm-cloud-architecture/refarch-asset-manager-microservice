@@ -2,6 +2,8 @@ package utils;
 
 import java.util.List;
 
+import javax.ws.rs.core.Response;
+
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -61,11 +63,11 @@ public class AssetDAOImplTest extends AbstractTest {
 		
 		Asset asset = new Asset("0", "test", "test", "test", "0.0.0.0", "1.0.0");
 		
-		String create = assetDAOImpl.createAsset(asset);
+		Response create = assetDAOImpl.createAsset(asset);
 		
-		while(!value)
+		while(value == false)
 		{
-			if(create.contains(asset.getId())) {
+			if(create.getStatus()==200){//create.contains(asset.getId())) {
 				value = true;
 			}
 		  Thread.sleep(1000);
@@ -79,11 +81,11 @@ public class AssetDAOImplTest extends AbstractTest {
 		
 		Asset asset = new Asset("3", "UpdWindow", "UpdWindow", "UpdKaspersky", "1.1.1.1", "3.0.1");
 		
-		String update = assetDAOImpl.updateAsset(asset, "3");
+		Response update = assetDAOImpl.updateAsset(asset, "3");
 		
-		while(!value)
+		while(value == false)
 		{
-			if(update.contains(asset.getId())) {
+			if(update.getStatus()==200) {
 				value = true;
 			}
 		  Thread.sleep(1000);
@@ -96,13 +98,11 @@ public class AssetDAOImplTest extends AbstractTest {
 	@Test
 	public void deleteAssetTest() throws Exception {
 		
-		Asset asset = new Asset("4", "Window", "Window", "Kaspersky", "0.0.0.0", "4.0.0");
+		Response delete = assetDAOImpl.deleteAsset("4");
 		
-		String delete = assetDAOImpl.deleteAsset("4");
-		
-		while(!value)
+		while(value == false)
 		{
-			if(delete.contains(asset.getId())) {
+			if(delete.getStatus()==200) {
 				value = true;
 			}
 		  Thread.sleep(1000);
