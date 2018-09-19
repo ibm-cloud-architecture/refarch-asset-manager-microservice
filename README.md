@@ -16,7 +16,7 @@
 
 ## Introduction
 
-This project is built to demonstrate how to build Asset Management Microservices applications using Microprofile. 
+This project is built to demonstrate how to build Asset Management Microservice application using Microprofile.
 This application provides CRUD operations from a NoSQL database [***Cassandra***](http://cassandra.apache.org/).
 
 - Based on [MicroProfile](https://microprofile.io/).
@@ -26,12 +26,15 @@ This application provides CRUD operations from a NoSQL database [***Cassandra***
 ## How it works
 
 The Asset Management Microservice serves 'IBM Cloud Native Reference Architecture' suite, available at
-https://github.com/ibm-cloud-architecture/refarch-asset-analytics. Though it is a part of a bigger application, 
+https://github.com/ibm-cloud-architecture/refarch-asset-analytics. Though it is a part of a bigger application,
 the Asset Management service is itself an application that persists the data of assets to Cassandra database.
 
 <p align="center">
     <img src="images/assetmgr.png">
 </p>
+
+## Prerequisites
+You need to have Cassandra deployed, we present multiple choices in [this note](https://github.com/ibm-cloud-architecture/refarch-asset-analytics/tree/master/docs/cassandra.md) and the scripts to prepare the database (keyspace, tables...)
 
 ## API Endpoints
 
@@ -39,12 +42,12 @@ the Asset Management service is itself an application that persists the data of 
 
 ```
 POST   /assetmanager/assets
-``` 
+```
 Asset object must be passed as JSON object in the request body with the following format:
 
 ```
 {
- "id":"1", 
+ "id":"1",
  "os":"testdata",
  "type":"testdata",
  "ipAddress": "0.0.0.0",
@@ -55,7 +58,7 @@ Asset object must be passed as JSON object in the request body with the followin
 
 On success, `Asset with ID 1 got created` is returned.
 
-#### Return all assets 
+#### Return all assets
 
 ```
 GET     /assetmanager/assets
@@ -88,7 +91,7 @@ Asset object must be passed as JSON object in the request body with the followin
 
 ```
 {
- "id":"1", 
+ "id":"1",
  "os":"updtestdata",
  "type":"updtestdata",
  "ipAddress": "0.0.0.0",
@@ -111,7 +114,7 @@ On success, `Asset with ID 1 got deleted` is returned.
 
 #### [MicroProfile](https://microprofile.io/)
 
-MicroProfile is an open platform that optimizes the Enterprise Java for microservices architecture. In this application, 
+MicroProfile is an open platform that optimizes the Enterprise Java for microservices architecture. In this application,
 we use [**MicroProfile 1.3**](https://github.com/eclipse/microprofile-bom).
 
 You can make use of this feature by including this dependency in Maven.
@@ -147,15 +150,15 @@ You should also include a feature in [server.xml](https://github.com/ibm-cloud-a
 
 2. [CDI 1.2](https://jcp.org/en/jsr/detail?id=346) - Used CDI for typesafe dependency injection
 
-3. [JAX-RS 2.0.1](https://jcp.org/en/jsr/detail?id=339) - 
+3. [JAX-RS 2.0.1](https://jcp.org/en/jsr/detail?id=339) -
 JAX-RS is used for providing both standard client and server APIs for RESTful communication by the MicroProfile applications.
 
-4. [Eclipse MicroProfile Config](https://github.com/eclipse/microprofile-config) - 
-Configuration data comes from different sources like system properties, 
-system environment variables, *.properties etc. These values may change dynamically. 
+4. [Eclipse MicroProfile Config](https://github.com/eclipse/microprofile-config) -
+Configuration data comes from different sources like system properties,
+system environment variables, *.properties etc. These values may change dynamically.
 This feature enables us to pick up configured values immediately after they got changed.
 
-    The config values are sorted according to their ordinal. We can override the less important values from outside. 
+    The config values are sorted according to their ordinal. We can override the less important values from outside.
     The config sources three locations by default, and the list below shows their rank in priority from most to least:
 
     - System.getProperties()
@@ -170,17 +173,17 @@ You can deploy the application locally on your system or on IBM Cloud Private ba
 
 ### IBM Cloud Private
 
-To deploy it on IBM Cloud Private, please follow the instructions provided 
+To deploy it on IBM Cloud Private, please follow the instructions provided
 [here](https://github.com/ibm-cloud-architecture/refarch-asset-manager-microservice/blob/microprofile/docs/icp.md).
 
 ### Run Asset Service locally
 
-To deploy the app locally and test the individual service, please follow the instructions provided 
+To deploy the app locally and test the individual service, please follow the instructions provided
 [here](https://github.com/ibm-cloud-architecture/refarch-asset-manager-microservice/blob/microprofile/docs/local.md).
 
 ## DevOps strategy
 
-You can use [Microclimate](https://microclimate-dev2ops.github.io/) as your end-to-end development environment. It helps us from coding the application locally to deploying the application using a pipeline. 
+You can use [Microclimate](https://microclimate-dev2ops.github.io/) as your end-to-end development environment. It helps us from coding the application locally to deploying the application using a pipeline.
 
 Using this, you can
 
