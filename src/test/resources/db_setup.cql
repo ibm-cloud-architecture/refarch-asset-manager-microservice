@@ -1,4 +1,4 @@
-CREATE KEYSPACE IF NOT EXISTS assetmonitoring with replication = {'class':'SimpleStrategy','replication_factor':1};
+CREATE KEYSPACE IF NOT EXISTS assetmonitoring with replication = {'class':'NetworkTopologyStrategy', 'DC1':1};
 
 CREATE TABLE IF NOT EXISTS assetmonitoring.assets(
     id text PRIMARY KEY, 
@@ -21,3 +21,16 @@ INSERT INTO assetmonitoring.assets (id, os, type, ipaddress, version, antivirus,
 INSERT INTO assetmonitoring.assets (id, os, type, ipaddress, version, antivirus, current, rotation, pressure, temperature, latitude, longitude) values ('2', 'Window', 'Window', '0.0.0.0', '2.0.0', 'Kaspersky', 1, 1, 1, 1, 1, 1);
 INSERT INTO assetmonitoring.assets (id, os, type, ipaddress, version, antivirus, current, rotation, pressure, temperature, latitude, longitude) values ('3', 'Window', 'Window', '0.0.0.0', '3.0.0', 'Kaspersky', 1, 1, 1, 1, 1, 1);
 INSERT INTO assetmonitoring.assets (id, os, type, ipaddress, version, antivirus, current, rotation, pressure, temperature, latitude, longitude) values ('4', 'Window', 'Window', '0.0.0.0', '4.0.0', 'Kaspersky', 1, 1, 1, 1, 1, 1);
+
+CREATE TABLE IF NOT EXISTS assetmonitoring.event_metrics(
+    id text PRIMARY KEY,
+    current double,
+    rotation int,
+    pressure int,
+    temperature int,
+    timecreated timestamp
+);
+
+CREATE INDEX IF NOT EXISTS ON assetmonitoring.event_metrics(timecreated);
+
+INSERT INTO assetmonitoring.event_metrics (id, current, rotation, pressure, temperature, timecreated) values ('1', 1, 1, 1, 1, toTimestamp(now()));

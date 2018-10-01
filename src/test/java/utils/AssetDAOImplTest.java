@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ws.rs.core.Response;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -19,7 +20,6 @@ public class AssetDAOImplTest extends AbstractTest {
 	@BeforeClass
 	public void setUp() throws Exception {
 		assetDAOImpl = new AssetDAOImpl(cassandra.session);
-	
 	}
 
 	@Test
@@ -67,7 +67,7 @@ public class AssetDAOImplTest extends AbstractTest {
 		
 		while(value == false)
 		{
-			if(create.getStatus()==200){//create.contains(asset.getId())) {
+			if(create.getStatus()==200){
 				value = true;
 			}
 		  Thread.sleep(1000);
