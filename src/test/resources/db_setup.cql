@@ -33,4 +33,5 @@ CREATE TABLE IF NOT EXISTS assetmonitoring.event_metrics(
 
 CREATE INDEX IF NOT EXISTS ON assetmonitoring.event_metrics(timecreated);
 
-INSERT INTO assetmonitoring.event_metrics (id, current, rotation, pressure, temperature, timecreated) values ('1', 1, 1, 1, 1, toTimestamp(now()));
+INSERT INTO assetmonitoring.event_metrics (id, current, rotation, pressure, temperature, timecreated) values ('1', 1, 1, 1, 1, '2018-10-01T21:01:54.001+0000');
+INSERT INTO assetmonitoring.event_metrics (id, current, rotation, pressure, temperature, timecreated) values ('3', 3, 3, 3, 3, '2018-10-01T21:01:54.001+0000');

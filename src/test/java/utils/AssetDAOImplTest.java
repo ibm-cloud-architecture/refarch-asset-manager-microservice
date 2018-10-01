@@ -5,7 +5,6 @@ import java.util.List;
 import javax.ws.rs.core.Response;
 
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -14,8 +13,6 @@ import model.Asset;
 public class AssetDAOImplTest extends AbstractTest {
 	
 	private AssetDAOImpl assetDAOImpl;
-	
-	private volatile boolean value = false;
 	
 	@BeforeClass
 	public void setUp() throws Exception {
@@ -64,16 +61,8 @@ public class AssetDAOImplTest extends AbstractTest {
 		Asset asset = new Asset("0", "test", "test", "test", "0.0.0.0", "1.0.0");
 		
 		Response create = assetDAOImpl.createAsset(asset);
-		
-		while(value == false)
-		{
-			if(create.getStatus()==200){
-				value = true;
-			}
-		  Thread.sleep(1000);
-		}
 	
-		Assert.assertTrue(assetDAOImpl.getAssets().contains(asset));
+		Assert.assertTrue(create.getStatus()==200);
 	}
 
 	@Test
@@ -82,16 +71,8 @@ public class AssetDAOImplTest extends AbstractTest {
 		Asset asset = new Asset("3", "UpdWindow", "UpdWindow", "UpdKaspersky", "1.1.1.1", "3.0.1");
 		
 		Response update = assetDAOImpl.updateAsset(asset, "3");
-		
-		while(value == false)
-		{
-			if(update.getStatus()==200) {
-				value = true;
-			}
-		  Thread.sleep(1000);
-		}
 	
-		Assert.assertTrue(assetDAOImpl.getAssets().contains(asset));
+		Assert.assertTrue(update.getStatus()==200);
 		
 	}
 
@@ -99,16 +80,8 @@ public class AssetDAOImplTest extends AbstractTest {
 	public void deleteAssetTest() throws Exception {
 		
 		Response delete = assetDAOImpl.deleteAsset("4");
-		
-		while(value == false)
-		{
-			if(delete.getStatus()==200) {
-				value = true;
-			}
-		  Thread.sleep(1000);
-		}
 	
-		Assert.assertTrue(assetDAOImpl.getAssetsById("4").isEmpty());
+		Assert.assertTrue(delete.getStatus()==200);
 
 	}
 
