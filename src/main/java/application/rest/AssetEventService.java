@@ -16,7 +16,7 @@ import utils.CassandraConnection;
 public class AssetEventService {
 	
     CassandraConnection cc  = new CassandraConnection();
-	
+    
 	public AssetEventService(CassandraConnection cc){
 		this.cc = cc;
 	}
