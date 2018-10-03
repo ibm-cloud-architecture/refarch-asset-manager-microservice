@@ -115,18 +115,21 @@ APIs available are as follows
 
 ```
 POST
-assetmgr.greencompute.ibmcase.com/assetmanager/assets               - Save an Asset
+assetmgr.greencompute.ibmcase.com/assetmanager/assets                         - Save an Asset
+assetmgr.greencompute.ibmcase.com/assetmanager/events                         - Save an Event
 
 GET
-assetmgr.greencompute.ibmcase.com/assetmanager/assets               - Get all the available assets
-assetmgr.greencompute.ibmcase.com/assetmanager/assets/{id}          - Get all the available assets by id
-assetmgr.greencompute.ibmcase.com/assetmanager/assets/type/{type}   - Get all the available assets by type
+assetmgr.greencompute.ibmcase.com/assetmanager/assets                         - Get all the available assets
+assetmgr.greencompute.ibmcase.com/assetmanager/assets/{id}                    - Get all the available assets by id
+assetmgr.greencompute.ibmcase.com/assetmanager/assets/type/{type}             - Get all the available assets by type
+assetmgr.greencompute.ibmcase.com/assetmanager/events                         - Get all the events
+assetmgr.greencompute.ibmcase.com/assetmanager/events/{fromDate}/{toDate}     - Get the event history
 
 PUT
-assetmgr.greencompute.ibmcase.com/assetmanager/assets/{id}          - Update an Asset
+assetmgr.greencompute.ibmcase.com/assetmanager/assets/{id}                    - Update an Asset
 
 DELETE
-assetmgr.greencompute.ibmcase.com/assetmanager/assets/{id}          - Delete an Asset
+assetmgr.greencompute.ibmcase.com/assetmanager/assets/{id}                    - Delete an Asset
 ```
 
 You can either use CURL or Postman to access the APIs.
