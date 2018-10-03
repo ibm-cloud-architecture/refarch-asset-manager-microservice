@@ -33,9 +33,6 @@ the Asset Management service is itself an application that persists the data of 
     <img src="images/assetmgr.png">
 </p>
 
-## Prerequisites
-You need to have Cassandra deployed, we present multiple choices in [this note](https://github.com/ibm-cloud-architecture/refarch-asset-analytics/tree/master/docs/cassandra.md) and the scripts to prepare the database (keyspace, tables...)
-
 ## API Endpoints
 
 #### Create an asset
