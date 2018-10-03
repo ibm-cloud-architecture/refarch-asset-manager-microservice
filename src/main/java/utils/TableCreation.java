@@ -14,6 +14,7 @@ public class TableCreation {
 	private Config config = ConfigProvider.getConfig();
 	private final String cassandra_keyspace = config.getValue("cassandra_keyspace", String.class);
 	private final String cassandra_table = config.getValue("cassandra_table", String.class);
+	private final String cassandra_table_event = config.getValue("cassandra_table_event", String.class);
 	CassandraConnection cc = new CassandraConnection();
 	
 	public void createTable(){
@@ -28,13 +29,25 @@ public class TableCreation {
 
 	    final String createIndexType = "CREATE INDEX IF NOT EXISTS ON "+cassandra_keyspace+ "."+cassandra_table+"(type)";
 	    
-	    //Create table
+	    final String createEventMetricsCql = "create TABLE IF NOT EXISTS "+cassandra_keyspace+ "."+cassandra_table_event+"(id text PRIMARY KEY, current double, "
+	    		+ "rotation int, pressure int, temperature int, timecreated timestamp)";
+	    
+	    
+	    final String createIndexTs = "CREATE INDEX IF NOT EXISTS ON "+cassandra_keyspace+ "."+cassandra_table_event+"(timecreated)";
+	    
+	    //Create Assets table
 	    session.execute(createAssetCql);
 	    logger.info("Table "+cassandra_table);
+	    
+	    //Create Events table
+	    session.execute(createEventMetricsCql);
+	    logger.info("Table "+cassandra_table_event);
 	    
 	    //Create indexes
 	    session.execute(createIndexType);
 	    logger.info("Index on type");
+	    session.execute(createIndexTs);
+	    logger.info("Index on timestamp created");
 	    
 	    cc.close();
 	}

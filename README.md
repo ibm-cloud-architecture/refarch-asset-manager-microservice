@@ -33,9 +33,6 @@ the Asset Management service is itself an application that persists the data of 
     <img src="images/assetmgr.png">
 </p>
 
-## Prerequisites
-You need to have Cassandra deployed, we present multiple choices in [this note](https://github.com/ibm-cloud-architecture/refarch-asset-analytics/tree/master/docs/cassandra.md) and the scripts to prepare the database (keyspace, tables...)
-
 ## API Endpoints
 
 #### Create an asset
@@ -56,7 +53,54 @@ Asset object must be passed as JSON object in the request body with the followin
 }
 ```
 
-On success, `Asset with ID 1 got created` is returned.
+On success, the below is returned.
+
+```
+{
+    "id": "1",
+    "os": "testdata",
+    "version": "1.0.0",
+    "type": "testdata",
+    "ipAddress": "0.0.0.0",
+    "antivirus": "testdata",
+    "rotation": 0,
+    "current": 0,
+    "pressure": 0,
+    "flowRate": 0,
+    "temperature": 0,
+    "latitude": 0,
+    "longitude": 0
+}
+```
+
+#### Create an event
+
+```
+POST   /assetmanager/events
+```
+AssetEvent object must be passed as JSON object in the request body with the following format:
+
+```
+{
+ "id":"1", 
+ "current": 1,
+ "rotation": 1,
+ "pressure": 28,
+ "temperature": 28
+}
+```
+
+On success, the below is returned.
+
+```
+{
+    "id": "1",
+    "rotation": 1,
+    "current": 1,
+    "pressure": 28,
+    "temperature": 28
+}
+```
 
 #### Return all assets
 
@@ -80,6 +124,22 @@ GET     /assetmanager/assets/type/{type}
 ```
 
 On success, Returns all assets available in the datastore based on `Type`.
+
+#### Return all events
+
+```
+GET     /assetmanager/events
+```
+On success, returns all the asset events in the data store.
+
+#### Return all events based on the event history
+
+```
+GET     assetmanager/events/{fromDate}/{toDate}
+```
+For eg. `assetmanager/events/2018-07-19 12:10:12 /2018-10-02 22:23:20`
+
+On success, returns all the asset events between the dates you mentioned.
 
 #### Update an asset
 
