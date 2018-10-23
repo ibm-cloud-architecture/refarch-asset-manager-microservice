@@ -15,12 +15,12 @@ spec:
     port: 9443
 
   selector:
-    app: "assetmanager-selector"
+    app: "assetmanagerms"
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: "assetmanager-deployment"
+  name: "assetmanager"
 spec:
   # this replicas value is default
   # modify it according to your case
@@ -28,11 +28,11 @@ spec:
   template:
     metadata:
       labels:
-        app: "assetmanager-selector"
+        app: "assetmanagerms"
     spec:
       containers:
       - name: assetmanager
-        image: assetmanager:latest
+        image: ibmcase/asset-mgr-msk :latest
         readinessProbe:
           httpGet:
             path: /assetmanager/health
