@@ -2,13 +2,12 @@ package application.rest;
 
 import javax.ws.rs.core.Response;
 
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
-import application.rest.AssetService;
 import model.Asset;
 import utils.AbstractTest;
 import utils.CassandraConnection;
@@ -16,7 +15,7 @@ import utils.CassandraConnection;
 
 public class AssetServiceTest extends AbstractTest {
 
-	@BeforeMethod
+	@Before
 	public void init() {
 		MockitoAnnotations.initMocks(this);
 	}

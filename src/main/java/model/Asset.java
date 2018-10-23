@@ -16,6 +16,7 @@ public class Asset {
 	protected int pressure;
 	protected long flowRate;
 	protected int temperature;
+	protected double riskRating=-1;
 	protected double latitude;
 	protected double longitude;
 	protected Date creationDate;
@@ -169,6 +170,14 @@ public class Asset {
 			return (oa.latitude == this.latitude) && (oa.longitude == this.longitude);
 		}
 		return false;
+	}
+
+	public double getRiskRating() {
+		return riskRating;
+	}
+
+	public void setRiskRating(double riskRating) {
+		this.riskRating = riskRating;
 	}
 
 }

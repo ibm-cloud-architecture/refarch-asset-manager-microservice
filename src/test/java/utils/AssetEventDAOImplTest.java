@@ -7,18 +7,18 @@ import java.util.List;
 
 import javax.ws.rs.core.Response;
 
-import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import model.AssetEvent;
 
 public class AssetEventDAOImplTest extends AbstractTest {
 	
-private AssetEventDAOImpl assetEventDAOImpl;
+	private AssetEventDAOImpl assetEventDAOImpl;
 	
-	@BeforeClass
-	public void setUp() throws Exception {
+	@Before
+	public  void setUp() throws Exception {
 		assetEventDAOImpl = new AssetEventDAOImpl(cassandra.session);
 	}
 	
@@ -27,6 +27,7 @@ private AssetEventDAOImpl assetEventDAOImpl;
 		
 		AssetEvent assetEvent = new AssetEvent("1", 1, 1, 1, 1);
 		List<AssetEvent> assts = assetEventDAOImpl.getAssetEvents();
+		
 		Assert.assertTrue(assts.toString().contains(assetEvent.getId()));
 	
 	}

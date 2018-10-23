@@ -1,6 +1,5 @@
 package application.rest;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,7 +17,6 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import model.Asset;
 import model.AssetEvent;
 import utils.AbstractTest;
 

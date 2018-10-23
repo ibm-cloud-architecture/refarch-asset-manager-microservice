@@ -47,7 +47,7 @@ spec:
           - name: cassandra_host
             value: "cassandra"
           - name: cassandra_port
-            value: "9042"
+            value: "32042"
           - name: cassandra_keyspace
             value: "assetmonitoring"
           - name: cassandra_table

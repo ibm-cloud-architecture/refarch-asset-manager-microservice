@@ -33,6 +33,17 @@ public class AssetEvent {
 		this.ts = ts;
 	}
 	
+	@Override
+    public String toString() {
+		return "Asset:" 
+					  + getId()
+					  + " " + getRotation()
+					  + " " + getPressure()
+					  + " " + getTemperature()
+					  + " " + getCurrent()
+					  + " " + getTs();
+		  }
+	
 	public String getId() {
 		return id;
 	}

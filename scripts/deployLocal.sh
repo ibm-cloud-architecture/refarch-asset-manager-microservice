@@ -10,4 +10,9 @@ else
   mode="dev"
 fi
 nspace=greencompute
-kubectl apply -f ./manifests/asset-mgr-ms-deploy.yml  --namespace $nspace
+if [ "$mode"  = "dev" ]
+then
+  kubectl apply -f ./manifests/dev/asset-mgr-ms-deploy.yml  --namespace $nspace
+else
+  kubectl apply -f ./manifests/asset-mgr-ms-deploy.yml  --namespace $nspace
+fi

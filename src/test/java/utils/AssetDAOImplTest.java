@@ -4,9 +4,9 @@ import java.util.List;
 
 import javax.ws.rs.core.Response;
 
-import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import model.Asset;
 
@@ -14,7 +14,7 @@ public class AssetDAOImplTest extends AbstractTest {
 	
 	private AssetDAOImpl assetDAOImpl;
 	
-	@BeforeClass
+	@Before
 	public void setUp() throws Exception {
 		assetDAOImpl = new AssetDAOImpl(cassandra.session);
 	}

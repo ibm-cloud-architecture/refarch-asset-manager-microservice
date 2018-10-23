@@ -8,11 +8,11 @@ import java.util.List;
 
 import javax.ws.rs.core.Response;
 
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 import model.AssetEvent;
 import utils.AbstractTest;
@@ -20,7 +20,7 @@ import utils.CassandraConnection;
 
 public class AssetEventServiceTest extends AbstractTest {
 	
-	@BeforeMethod
+	@Before
 	public void init() {
 		MockitoAnnotations.initMocks(this);
 	}
