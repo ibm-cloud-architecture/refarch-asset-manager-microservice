@@ -32,13 +32,22 @@ spec:
     spec:
       containers:
       - name: assetmanager
-        image: ibmcase/asset-mgr-msk :latest
+        image: ibmcase/assetmanagermp:v1.0.0
         readinessProbe:
           httpGet:
-            path: /assetmanager/health
+            path: /health
             port: 9080
           initialDelaySeconds: 20
-        # resources:
-        #   requests:
-        #     cpu: 100m
-        #     memory: 100Mi
+        resources:
+          requests:
+            cpu: 200m
+            memory: 300Mi
+        env:
+          - name: cassandra_host
+            value: "cassandra"
+          - name: cassandra_port
+            value: "9042"
+          - name: cassandra_keyspace
+            value: "assetmonitoring"
+          - name: cassandra_table
+            value: "assets"
