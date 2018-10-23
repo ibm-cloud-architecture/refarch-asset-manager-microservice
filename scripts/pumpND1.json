@@ -1,0 +1,1 @@
+    {"id":"ND01", "ipAddress": "172.16.0.1", "type": "ESP", "version": "v.12","os":"Raspbian", "latitude": "45.028302", "longitude": "-103.896258", "antivirus":"v3.0","rotation":209,"pressure": 45, "flowRate": 37, "flowRate":40,"temperature": 110}
