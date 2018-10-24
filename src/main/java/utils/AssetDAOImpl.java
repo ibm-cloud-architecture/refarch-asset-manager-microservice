@@ -62,10 +62,13 @@ public class AssetDAOImpl implements AssetDAO {
     	   asset.setLongitude(row.getDouble("longitude"));
     	   asset.setOs(row.getString("os"));
     	   asset.setPressure(row.getInt("pressure"));
+    	   asset.setFlowRate(row.getLong("flowRate"));
+    	   asset.setRiskRating(row.getDouble("riskRating"));
     	   asset.setRotation(row.getInt("rotation"));
     	   asset.setTemperature(row.getInt("temperature"));
     	   asset.setType(row.getString("type"));
     	   asset.setVersion(row.getString("version"));
+    	   asset.setCreationDate(row.getTimestamp("creationDate"));
     	   assets.add(asset);
        }
        
@@ -108,10 +111,13 @@ public class AssetDAOImpl implements AssetDAO {
     	   asset.setLongitude(row.getDouble("longitude"));
     	   asset.setOs(row.getString("os"));
     	   asset.setPressure(row.getInt("pressure"));
+    	   asset.setFlowRate(row.getLong("flowRate"));
+    	   asset.setRiskRating(row.getDouble("riskRating"));
     	   asset.setRotation(row.getInt("rotation"));
     	   asset.setTemperature(row.getInt("temperature"));
     	   asset.setType(row.getString("type"));
     	   asset.setVersion(row.getString("version"));
+    	   asset.setCreationDate(row.getTimestamp("creationDate"));
     	   assets.add(asset);
     	   
        }
@@ -155,10 +161,13 @@ public class AssetDAOImpl implements AssetDAO {
 		   asset.setLongitude(row.getDouble("longitude"));
 		   asset.setOs(row.getString("os"));
 		   asset.setPressure(row.getInt("pressure"));
+    	   asset.setFlowRate(row.getLong("flowRate"));
+		   asset.setPressure(row.getInt("pressure"));
 		   asset.setRotation(row.getInt("rotation"));
 		   asset.setTemperature(row.getInt("temperature"));
 		   asset.setType(row.getString("type"));
 		   asset.setVersion(row.getString("version"));
+		   asset.setCreationDate(row.getTimestamp("creationDate"));
 		   assets.add(asset);
 		   
 	   }
@@ -172,10 +181,10 @@ public class AssetDAOImpl implements AssetDAO {
    public Response createAsset(Asset asset) {
 	   
 	   session.executeAsync("insert into "+cassandra_keyspace+ "."+cassandra_table
-				+ "(id, os, type, ipaddress, version, antivirus, current, rotation, pressure, temperature, latitude, longitude) "
+				+ "(id, os, type, ipaddress, version, antivirus, current, rotation, pressure, flowRate, temperature, riskRating, latitude, longitude, creationDate) "
 				+ "values ('"+asset.getId()+"', '"+asset.getOs()+"', '"+asset.getType()+"', '"+asset.getIpAddress()+"', '"+asset.getVersion()+"',"
-				+ " '"+asset.getAntivirus()+"', "+asset.getCurrent()+", "+asset.getRotation()+", "+asset.getPressure()+", "+asset.getTemperature()+""
-				+ ", "+asset.getLatitude()+", "+asset.getLongitude()+");");
+				+ " '"+asset.getAntivirus()+"', "+asset.getCurrent()+", "+asset.getRotation()+", "+asset.getPressure()+","+asset.getFlowRate()+", "+asset.getTemperature()+""
+				+ ", "+asset.getRiskRating()+","+asset.getLatitude()+", "+asset.getLongitude()+", toTimestamp(now()));");
 	   
 	   return Response.ok(asset, MediaType.APPLICATION_JSON).build(); 
 	      
@@ -187,8 +196,8 @@ public class AssetDAOImpl implements AssetDAO {
 	   
 	   session.executeAsync("update assetmonitoring.assets set os='"+asset.getOs()+"', type='"+asset.getType()+"',"
 				+ " ipaddress='"+asset.getIpAddress()+"', version='"+asset.getVersion()+"', antivirus='"+asset.getAntivirus()+"',"
-				+ " current="+asset.getCurrent()+", rotation="+asset.getRotation()+", pressure="+asset.getPressure()+", temperature="+asset.getTemperature()+""
-				+ ", latitude="+asset.getLatitude()+", longitude="+asset.getLongitude()+" where id='"+id+"'");
+				+ " current="+asset.getCurrent()+", rotation="+asset.getRotation()+", pressure="+asset.getPressure()+", flowRate="+asset.getFlowRate()+", temperature="+asset.getTemperature()+""
+				+ ", riskRating="+asset.getRiskRating()+", latitude="+asset.getLatitude()+", longitude="+asset.getLongitude()+" where id='"+id+"'");
 	   
 	   return Response.ok(asset, MediaType.APPLICATION_JSON).build(); 
 	   
