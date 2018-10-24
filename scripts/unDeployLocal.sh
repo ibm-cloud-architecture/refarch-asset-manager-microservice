@@ -5,4 +5,5 @@ if [[ $PWD = */scripts ]]; then
 fi
 
 nspace=greencompute
-delete deployment,svc -l app=assetmanagerms -n $nspace
+kubectl delete deployment,svc -l app=assetmanagerms -n $nspace
+kubectl delete svc assetmanager-service -n $nspace

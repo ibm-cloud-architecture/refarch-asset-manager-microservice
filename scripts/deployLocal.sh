@@ -3,11 +3,13 @@ set p = $(echo $PWD | awk -v h="scripts" '$0 ~h')
 if [[ $PWD = */scripts ]]; then
  cd ..
 fi
-if [ $# -eq 1 ]
+if [ $# -ne 0 ]
 then
+  echo "if"+$mode
   mode=$1
 else
   mode="dev"
+  echo "else"+$mode
 fi
 nspace=greencompute
 if [ "$mode"  = "dev" ]
