@@ -9,18 +9,21 @@ CREATE TABLE IF NOT EXISTS assetmonitoring.assets(
     antivirus text, 
     current double, 
     rotation int, 
-    pressure int, 
-    temperature int, 
+    pressure int,
+    flowRate bigint 
+    temperature int,
+    riskRating double, 
     latitude double, 
-    longitude double
+    longitude double,
+    creationDate timestamp
 );
 
 CREATE INDEX IF NOT EXISTS ON assetmonitoring.assets (type);
 
-INSERT INTO assetmonitoring.assets (id, os, type, ipaddress, version, antivirus, current, rotation, pressure, temperature, latitude, longitude) values ('1', 'Window', 'Window', '0.0.0.0', '1.0.0', 'Kaspersky', 1, 1, 1, 1, 1, 1);
-INSERT INTO assetmonitoring.assets (id, os, type, ipaddress, version, antivirus, current, rotation, pressure, temperature, latitude, longitude) values ('2', 'Window', 'Window', '0.0.0.0', '2.0.0', 'Kaspersky', 1, 1, 1, 1, 1, 1);
-INSERT INTO assetmonitoring.assets (id, os, type, ipaddress, version, antivirus, current, rotation, pressure, temperature, latitude, longitude) values ('3', 'Window', 'Window', '0.0.0.0', '3.0.0', 'Kaspersky', 1, 1, 1, 1, 1, 1);
-INSERT INTO assetmonitoring.assets (id, os, type, ipaddress, version, antivirus, current, rotation, pressure, temperature, latitude, longitude) values ('4', 'Window', 'Window', '0.0.0.0', '4.0.0', 'Kaspersky', 1, 1, 1, 1, 1, 1);
+INSERT INTO assetmonitoring.assets (id, os, type, ipaddress, version, antivirus, current, rotation, pressure, flowRate, temperature, riskRating, latitude, longitude, creationDate) values ('1', 'Window', 'Window', '0.0.0.0', '1.0.0', 'Kaspersky', 1, 1, 1, 1, 1, 1, 1, 1, toTimestamp(now()));
+INSERT INTO assetmonitoring.assets (id, os, type, ipaddress, version, antivirus, current, rotation, pressure, flowRate, temperature, riskRating, latitude, longitude, creationDate) values ('2', 'Window', 'Window', '0.0.0.0', '2.0.0', 'Kaspersky', 1, 1, 1, 1, 1, 1, 1, 1, toTimestamp(now()));
+INSERT INTO assetmonitoring.assets (id, os, type, ipaddress, version, antivirus, current, rotation, pressure, flowRate, temperature, riskRating, latitude, longitude, creationDate) values ('3', 'Window', 'Window', '0.0.0.0', '3.0.0', 'Kaspersky', 1, 1, 1, 1, 1, 1, 1, 1, toTimestamp(now()));
+INSERT INTO assetmonitoring.assets (id, os, type, ipaddress, version, antivirus, current, rotation, pressure, flowRate, temperature, riskRating, latitude, longitude, creationDate) values ('4', 'Window', 'Window', '0.0.0.0', '4.0.0', 'Kaspersky', 1, 1, 1, 1, 1, 1, 1, 1, toTimestamp(now()));
 
 CREATE TABLE IF NOT EXISTS assetmonitoring.event_metrics(
     id text PRIMARY KEY,
