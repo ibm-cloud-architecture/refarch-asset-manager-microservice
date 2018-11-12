@@ -25,7 +25,7 @@ public class TableCreation {
 	    Session session = cc.getSession();
 		
 		final String createAssetCql = "create TABLE IF NOT EXISTS "+cassandra_keyspace+ "."+cassandra_table+"(id text PRIMARY KEY, os text, type text, ipaddress text, "
-				+ "version text, antivirus text, current double, rotation int, pressure int, flowRate bigint, temperature int, riskRating double, latitude double, longitude double, creationDate timestamp)";
+				+ "version text, antivirus text, current bigint, rotation bigint, pressure bigint, flowRate bigint, temperature bigint, riskRating bigint, latitude text, longitude text, creationDate timestamp)";
 
 	    final String createIndexType = "CREATE INDEX IF NOT EXISTS ON "+cassandra_keyspace+ "."+cassandra_table+"(type)";
 	    

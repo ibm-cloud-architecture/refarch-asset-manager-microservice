@@ -1,7 +1,10 @@
 package utils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.concurrent.ExecutionException;
 
 import javax.ws.rs.core.MediaType;
@@ -56,16 +59,16 @@ public class AssetDAOImpl implements AssetDAO {
     	   Asset asset = new Asset();
     	   asset.setId(row.getString("id"));
     	   asset.setAntivirus(row.getString("antivirus"));
-    	   asset.setCurrent(row.getDouble("current"));
+    	   asset.setCurrent(row.getLong("current"));
     	   asset.setIpAddress(row.getString("ipaddress"));
-    	   asset.setLatitude(row.getDouble("latitude"));
-    	   asset.setLongitude(row.getDouble("longitude"));
+    	   asset.setLatitude(row.getString("latitude"));
+    	   asset.setLongitude(row.getString("longitude"));
     	   asset.setOs(row.getString("os"));
-    	   asset.setPressure(row.getInt("pressure"));
+    	   asset.setPressure(row.getLong("pressure"));
     	   asset.setFlowRate(row.getLong("flowRate"));
-    	   asset.setRiskRating(row.getDouble("riskRating"));
-    	   asset.setRotation(row.getInt("rotation"));
-    	   asset.setTemperature(row.getInt("temperature"));
+    	   asset.setRiskRating(row.getLong("riskRating"));
+    	   asset.setRotation(row.getLong("rotation"));
+    	   asset.setTemperature(row.getLong("temperature"));
     	   asset.setType(row.getString("type"));
     	   asset.setVersion(row.getString("version"));
     	   asset.setCreationDate(row.getTimestamp("creationDate"));
@@ -105,16 +108,16 @@ public class AssetDAOImpl implements AssetDAO {
     	   Asset asset = new Asset();
     	   asset.setId(row.getString("id"));
     	   asset.setAntivirus(row.getString("antivirus"));
-    	   asset.setCurrent(row.getDouble("current"));
+    	   asset.setCurrent(row.getLong("current"));
     	   asset.setIpAddress(row.getString("ipaddress"));
-    	   asset.setLatitude(row.getDouble("latitude"));
-    	   asset.setLongitude(row.getDouble("longitude"));
+    	   asset.setLatitude(row.getString("latitude"));
+    	   asset.setLongitude(row.getString("longitude"));
     	   asset.setOs(row.getString("os"));
-    	   asset.setPressure(row.getInt("pressure"));
+    	   asset.setPressure(row.getLong("pressure"));
     	   asset.setFlowRate(row.getLong("flowRate"));
-    	   asset.setRiskRating(row.getDouble("riskRating"));
-    	   asset.setRotation(row.getInt("rotation"));
-    	   asset.setTemperature(row.getInt("temperature"));
+    	   asset.setRiskRating(row.getLong("riskRating"));
+    	   asset.setRotation(row.getLong("rotation"));
+    	   asset.setTemperature(row.getLong("temperature"));
     	   asset.setType(row.getString("type"));
     	   asset.setVersion(row.getString("version"));
     	   asset.setCreationDate(row.getTimestamp("creationDate"));
@@ -155,15 +158,15 @@ public class AssetDAOImpl implements AssetDAO {
 		   Asset asset = new Asset();
 		   asset.setId(row.getString("id"));
 		   asset.setAntivirus(row.getString("antivirus"));
-		   asset.setCurrent(row.getDouble("current"));
+		   asset.setCurrent(row.getLong("current"));
 		   asset.setIpAddress(row.getString("ipaddress"));
-		   asset.setLatitude(row.getDouble("latitude"));
-		   asset.setLongitude(row.getDouble("longitude"));
+		   asset.setLatitude(row.getString("latitude"));
+		   asset.setLongitude(row.getString("longitude"));
 		   asset.setOs(row.getString("os"));
-		   asset.setPressure(row.getInt("pressure"));
+		   asset.setPressure(row.getLong("pressure"));
     	   asset.setFlowRate(row.getLong("flowRate"));
-		   asset.setPressure(row.getInt("pressure"));
-		   asset.setRotation(row.getInt("rotation"));
+		   asset.setPressure(row.getLong("pressure"));
+		   asset.setRotation(row.getLong("rotation"));
 		   asset.setTemperature(row.getInt("temperature"));
 		   asset.setType(row.getString("type"));
 		   asset.setVersion(row.getString("version"));
@@ -180,11 +183,19 @@ public class AssetDAOImpl implements AssetDAO {
    @Override
    public Response createAsset(Asset asset) {
 	   
+	   Date astCreationDate = asset.getCreationDate();
+
+	   SimpleDateFormat cassandrarDtFormat;
+	   cassandrarDtFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+	   cassandrarDtFormat.setTimeZone(TimeZone.getTimeZone("CET"));
+	   
+	   String createDate = cassandrarDtFormat.format(astCreationDate);
+	   
 	   session.executeAsync("insert into "+cassandra_keyspace+ "."+cassandra_table
 				+ "(id, os, type, ipaddress, version, antivirus, current, rotation, pressure, flowRate, temperature, riskRating, latitude, longitude, creationDate) "
 				+ "values ('"+asset.getId()+"', '"+asset.getOs()+"', '"+asset.getType()+"', '"+asset.getIpAddress()+"', '"+asset.getVersion()+"',"
 				+ " '"+asset.getAntivirus()+"', "+asset.getCurrent()+", "+asset.getRotation()+", "+asset.getPressure()+","+asset.getFlowRate()+", "+asset.getTemperature()+""
-				+ ", "+asset.getRiskRating()+","+asset.getLatitude()+", "+asset.getLongitude()+", toTimestamp(now()));");
+				+ ", "+asset.getRiskRating()+", '"+asset.getLatitude()+"', '"+asset.getLongitude()+"','"+createDate+"');");
 	   
 	   return Response.ok(asset, MediaType.APPLICATION_JSON).build(); 
 	      

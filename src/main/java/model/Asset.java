@@ -11,14 +11,14 @@ public class Asset {
 	private String type;
 	private String ipAddress;
 	private String antivirus;
-	protected int rotation;
-	protected double current;
-	protected int pressure;
+	protected long rotation;
+	protected long current;
+	protected long pressure;
 	protected long flowRate;
-	protected int temperature;
-	protected double riskRating=-1;
-	protected double latitude;
-	protected double longitude;
+	protected long temperature;
+	protected long riskRating=-1;
+	protected String latitude;
+	protected String longitude;
 	protected Date creationDate;
 	
 	public Asset() {}
@@ -38,6 +38,24 @@ public class Asset {
 	    this.ipAddress = ipAddress;
 	    this.version = version;
 	    this.creationDate = new Date();
+	}
+	
+	public Asset(String id, String os, String type,  String antivirus, String ipAddress, String version,  long rotation, long current, long pressure, long flowRate, long temperature, long riskRating, String latitude, String longitude, Date creationDate) {
+		this.id = id;
+	    this.type = type;
+	    this.os = os;
+	    this.antivirus = antivirus;
+	    this.ipAddress = ipAddress;
+	    this.version = version;
+	    this.rotation = rotation;
+	    this.current = current;
+	    this.pressure = pressure;
+	    this.flowRate = flowRate;
+	    this.temperature = temperature;
+	    this.riskRating = riskRating;
+	    this.latitude = latitude;
+	    this.longitude = longitude;
+	    this.creationDate = creationDate;
 	}
 
 	@Override
@@ -103,15 +121,15 @@ public class Asset {
 		return rotation;
 	}
 	
-	public void setRotation(int rotation) {
+	public void setRotation(long rotation) {
 		this.rotation = rotation;
 	}
 	
-	public double getCurrent() {
+	public long getCurrent() {
 		return current;
 	}
 	
-	public void setCurrent(double current) {
+	public void setCurrent(long current) {
 		this.current = current;
 	}
 	
@@ -119,7 +137,7 @@ public class Asset {
 		return pressure;
 	}
 	
-	public void setPressure(int pressure) {
+	public void setPressure(long pressure) {
 		this.pressure = pressure;
 	}
 	
@@ -135,23 +153,23 @@ public class Asset {
 		return temperature;
 	}
 	
-	public void setTemperature(int temperature) {
+	public void setTemperature(long temperature) {
 		this.temperature = temperature;
 	}
 	
-	public double getLatitude() {
+	public String getLatitude() {
 		return latitude;
 	}
 	
-	public void setLatitude(double latitude) {
+	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
 	
-	public double getLongitude() {
+	public String getLongitude() {
 		return longitude;
 	}
 	
-	public void setLongitude(double longitude) {
+	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
 	
@@ -172,11 +190,11 @@ public class Asset {
 		return false;
 	}
 
-	public double getRiskRating() {
+	public long getRiskRating() {
 		return riskRating;
 	}
 
-	public void setRiskRating(double riskRating) {
+	public void setRiskRating(long riskRating) {
 		this.riskRating = riskRating;
 	}
 
