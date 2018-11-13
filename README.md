@@ -10,6 +10,7 @@
 * [Features and App details](#features)
 * [Deploying the App](#deploying-the-app)
     + [IBM Cloud Private](#ibm-cloud-private)
+    + [Docker Edge](#docker-edge)
     + [Run Asset Service locally](#run-asset-service-locally)
 * [DevOps Strategy](#devops-strategy)
 * [References](#references)
@@ -234,12 +235,17 @@ You can deploy the application locally on your system or on IBM Cloud Private ba
 ### IBM Cloud Private
 
 To deploy it on IBM Cloud Private, please follow the instructions provided
-[here](https://github.com/ibm-cloud-architecture/refarch-asset-manager-microservice/blob/microprofile/docs/icp.md).
+[here](./docs/icp.md).
+
+### Docker Edge
+
+To deploy it on Docker Edge, please follow the instructions provided
+[here](./docs/dockeredge.md).
 
 ### Run Asset Service locally
 
 To deploy the app locally and test the individual service, please follow the instructions provided
-[here](https://github.com/ibm-cloud-architecture/refarch-asset-manager-microservice/blob/microprofile/docs/local.md).
+[here](./docs/local.md).
 
 ## DevOps strategy
 
