@@ -47,10 +47,19 @@ Asset object must be passed as JSON object in the request body with the followin
 {
  "id":"1",
  "os":"testdata",
+ "version":"testdata",
  "type":"testdata",
- "ipAddress": "0.0.0.0",
- "version": "1.0.0",
- "antivirus":"testdata"
+ "ipAddress":"testdata",
+ "antivirus":"testdata",
+ "rotation":1,
+ "current":1,
+ "pressure":1,
+ "flowRate":1,
+ "temperature":1,
+ "riskRating":-1,
+ "latitude":"testdata",
+ "longitude":"testdata",
+ "creationDate":"2018-11-09T17:02:37-06"
 }
 ```
 
@@ -58,19 +67,21 @@ On success, the below is returned.
 
 ```
 {
-    "id": "1",
-    "os": "testdata",
-    "version": "1.0.0",
-    "type": "testdata",
-    "ipAddress": "0.0.0.0",
-    "antivirus": "testdata",
-    "rotation": 0,
-    "current": 0,
-    "pressure": 0,
-    "flowRate": 0,
-    "temperature": 0,
-    "latitude": 0,
-    "longitude": 0
+ "id":"1",
+ "os":"testdata",
+ "version":"testdata",
+ "type":"testdata",
+ "ipAddress":"testdata",
+ "antivirus":"testdata",
+ "rotation":1,
+ "current":1,
+ "pressure":1,
+ "flowRate":1,
+ "temperature":1,
+ "riskRating":-1,
+ "latitude":"testdata",
+ "longitude":"testdata",
+ "creationDate":1541804557000
 }
 ```
 
