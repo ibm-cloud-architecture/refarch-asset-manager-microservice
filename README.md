@@ -10,6 +10,7 @@
 * [Features and App details](#features)
 * [Deploying the App](#deploying-the-app)
     + [IBM Cloud Private](#ibm-cloud-private)
+    + [Docker Edge](#docker-edge)
     + [Run Asset Service locally](#run-asset-service-locally)
 * [DevOps Strategy](#devops-strategy)
 * [References](#references)
@@ -46,10 +47,19 @@ Asset object must be passed as JSON object in the request body with the followin
 {
  "id":"1",
  "os":"testdata",
+ "version":"testdata",
  "type":"testdata",
- "ipAddress": "0.0.0.0",
- "version": "1.0.0",
- "antivirus":"testdata"
+ "ipAddress":"testdata",
+ "antivirus":"testdata",
+ "rotation":1,
+ "current":1,
+ "pressure":1,
+ "flowRate":1,
+ "temperature":1,
+ "riskRating":-1,
+ "latitude":"testdata",
+ "longitude":"testdata",
+ "creationDate":"2018-11-09T17:02:37-06"
 }
 ```
 
@@ -57,19 +67,21 @@ On success, the below is returned.
 
 ```
 {
-    "id": "1",
-    "os": "testdata",
-    "version": "1.0.0",
-    "type": "testdata",
-    "ipAddress": "0.0.0.0",
-    "antivirus": "testdata",
-    "rotation": 0,
-    "current": 0,
-    "pressure": 0,
-    "flowRate": 0,
-    "temperature": 0,
-    "latitude": 0,
-    "longitude": 0
+ "id":"1",
+ "os":"testdata",
+ "version":"testdata",
+ "type":"testdata",
+ "ipAddress":"testdata",
+ "antivirus":"testdata",
+ "rotation":1,
+ "current":1,
+ "pressure":1,
+ "flowRate":1,
+ "temperature":1,
+ "riskRating":-1,
+ "latitude":"testdata",
+ "longitude":"testdata",
+ "creationDate":1541804557000
 }
 ```
 
@@ -234,12 +246,17 @@ You can deploy the application locally on your system or on IBM Cloud Private ba
 ### IBM Cloud Private
 
 To deploy it on IBM Cloud Private, please follow the instructions provided
-[here](https://github.com/ibm-cloud-architecture/refarch-asset-manager-microservice/blob/microprofile/docs/icp.md).
+[here](./docs/icp.md).
+
+### Docker Edge
+
+To deploy it on Docker Edge, please follow the instructions provided
+[here](./docs/dockeredge.md).
 
 ### Run Asset Service locally
 
 To deploy the app locally and test the individual service, please follow the instructions provided
-[here](https://github.com/ibm-cloud-architecture/refarch-asset-manager-microservice/blob/microprofile/docs/local.md).
+[here](./docs/local.md).
 
 ## DevOps strategy
 
