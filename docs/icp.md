@@ -88,6 +88,10 @@ Server: &version.Version{SemVer:"v2.7.2+icp", GitCommit:"d41a5c2da480efc555ddca5
 
 `kubectl create namespace greencompute`
 
+**Note**: If running on IBM Private Cloud 3.1.0 or higher, run the below command before installing the application.
+
+`kubectl apply -f ./manifests/image_policy.yaml -n greencompute`
+
 2. Add the `helm` package repository containing the reference application.
 
 `helm repo add asset https://raw.githubusercontent.com/ibm-cloud-architecture/refarch-asset-manager-microservice/microprofile/assetmanager`
