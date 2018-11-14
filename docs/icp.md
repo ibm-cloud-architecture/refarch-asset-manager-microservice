@@ -155,6 +155,8 @@ Note: If using IBM Cloud Private version older than 2.1.0.2, use `helm del --pur
 * [IBM Cloud Private version 2.1.0.2 Helm instructions](https://www.ibm.com/support/knowledgecenter/SSBS6K_2.1.0.2/app_center/create_helm_cli.html)
 * [Kubectl](https://kubernetes.io/docs/user-guide/kubectl-overview/)
 * [Helm](https://github.com/kubernetes/helm)
+* [IBM Cloud Private version 3.1.0 Helm instructions](https://www.ibm.com/support/knowledgecenter/SSBS6K_3.1.0/app_center/create_helm_cli.html)
+* [IBM Cloud Private CLI tools](https://www.ibm.com/support/knowledgecenter/SSBS6K_3.1.0/manage_cluster/cli_commands.html)
 
 
 
