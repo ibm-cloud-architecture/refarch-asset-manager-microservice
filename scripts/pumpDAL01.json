@@ -1,1 +1,1 @@
-{"id":"DAL01", "ipAddress": "172.16.0.1", "type": "ESP", "version": "v.12", "os":"Raspbian","latitude": "32.7767", "longitude": "-96.7970", "antivirus":"v3.0","rotation":209,"pressure": 90, "flowRate": 33, "flowRate":40,"temperature": 72}
+{"id":"DAL01","os":"Raspbian","version":"0.0.1","type":"ESP","ipAddress":"172.16.0.2","antivirus":"v2.3","rotation":71,"current":76,"pressure":701,"flowRate":3,"temperature":79,"riskRating":-1,"latitude":"30.307182","longitude":"-97.755996","creationDate":"2018-11-09T17:02:37-06"}
