@@ -6,4 +6,4 @@ else
   filen="$1"
 fi
 echo "$filen"
-curl -H "Content-Type: application-json" --request POST --data @$filen http://assetmgr.greencompute.ibmcase.com:32544/assetmanager/assets
+curl -H "Content-Type: application-json" --request POST --data @$filen http://assetmgr.greencompute.ibmcase.com/assetmanager/assets
