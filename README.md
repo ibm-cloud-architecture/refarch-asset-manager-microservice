@@ -6,23 +6,23 @@
 * [How it works](#how-it-works)
 * [API Endpoints](#api-endpoints)
 * [Implementation](#implementation)
-    * [Microprofile](#microprofile)
+  * [Microprofile](#microprofile)
 * [Features and App details](#features)
 * [Deploying the App](#deploying-the-app)
-    + [IBM Cloud Private](#ibm-cloud-private)
-    + [Docker Edge](#docker-edge)
-    + [Run Asset Service locally](#run-asset-service-locally)
+  * [IBM Cloud Private](#ibm-cloud-private)
+  * [Docker Edge](#docker-edge)
+  * [Run Asset Service locally](#run-asset-service-locally)
 * [DevOps Strategy](#devops-strategy)
 * [References](#references)
 
 ## Introduction
 
-This project is built to demonstrate how to build Asset Management Microservice application using Microprofile.
-This application provides CRUD operations from a NoSQL database [***Cassandra***](http://cassandra.apache.org/).
+This project is built to demonstrate how to develop Asset Management Microservice application using Microprofile.
+This application provides asset CRUD operations from a NoSQL database [***Cassandra***](http://cassandra.apache.org/).
 
-- Based on [MicroProfile](https://microprofile.io/).
-- Persist asset data to Cassandra.
-- Deployment options for local environment and ICP.
+* Based on [MicroProfile](https://microprofile.io/).
+* Persist asset data to Cassandra.
+* Deployment options for local environment and ICP.
 
 ## How it works
 
@@ -43,7 +43,7 @@ POST   /assetmanager/assets
 ```
 Asset object must be passed as JSON object in the request body with the following format:
 
-```
+```json
 {
  "id":"1",
  "os":"testdata",
@@ -65,7 +65,7 @@ Asset object must be passed as JSON object in the request body with the followin
 
 On success, the below is returned.
 
-```
+```json
 {
  "id":"1",
  "os":"testdata",
@@ -92,7 +92,7 @@ POST   /assetmanager/events
 ```
 AssetEvent object must be passed as JSON object in the request body with the following format:
 
-```
+```json
 {
  "id":"1", 
  "current": 1,
@@ -104,7 +104,7 @@ AssetEvent object must be passed as JSON object in the request body with the fol
 
 On success, the below is returned.
 
-```
+```json
 {
     "id": "1",
     "rotation": 1,
@@ -161,7 +161,7 @@ PUT     /assetmanager/assets/{id}
 
 Asset object must be passed as JSON object in the request body with the following format:
 
-```
+```json
 {
  "id":"1",
  "os":"updtestdata",
@@ -191,7 +191,7 @@ we use [**MicroProfile 1.3**](https://github.com/eclipse/microprofile-bom).
 
 You can make use of this feature by including this dependency in Maven.
 
-```
+```xml
 <dependency>
     <groupId>org.eclipse.microprofile</groupId>
     <artifactId>microprofile</artifactId>
@@ -203,7 +203,7 @@ You can make use of this feature by including this dependency in Maven.
 
 You should also include a feature in [server.xml](https://github.com/ibm-cloud-architecture/refarch-cloudnative-micro-orders/blob/microprofile/src/main/liberty/config/server.xml).
 
-```
+```xml
 <server description="Sample Liberty server">
 
   <featureManager>
@@ -222,20 +222,15 @@ You should also include a feature in [server.xml](https://github.com/ibm-cloud-a
 
 2. [CDI 1.2](https://jcp.org/en/jsr/detail?id=346) - Used CDI for typesafe dependency injection
 
-3. [JAX-RS 2.0.1](https://jcp.org/en/jsr/detail?id=339) -
-JAX-RS is used for providing both standard client and server APIs for RESTful communication by the MicroProfile applications.
+3. [JAX-RS 2.0.1](https://jcp.org/en/jsr/detail?id=339) - JAX-RS is used for providing both standard client and server APIs for RESTful communication by the MicroProfile applications.
 
-4. [Eclipse MicroProfile Config](https://github.com/eclipse/microprofile-config) -
-Configuration data comes from different sources like system properties,
-system environment variables, *.properties etc. These values may change dynamically.
-This feature enables us to pick up configured values immediately after they got changed.
+4. [Eclipse MicroProfile Config](https://github.com/eclipse/microprofile-config) - Configuration data comes from different sources like system properties, system environment variables, *.properties etc. These values may change dynamically. This feature enables us to pick up configured values immediately after they got changed.
 
-    The config values are sorted according to their ordinal. We can override the less important values from outside.
-    The config sources three locations by default, and the list below shows their rank in priority from most to least:
-
-    - System.getProperties()
-    - System.getenv()
-    - all META-INF/microprofile-config.properties files on the ClassPath.
+  The config values are sorted according to their ordinal. We can override the less important values from outside.
+  The config sources three locations by default, and the list below shows their rank in priority from most to least:
+  * System.getProperties()
+  * System.getenv()
+  * all META-INF/microprofile-config.properties files on the ClassPath.
 
     In our sample application, we obtained the configuration programmatically.
 
