@@ -1,1 +1,1 @@
-curl -H "Accept: application/json" http://assetmgr.greencompute.ibmcase.com:32544/assetmanager/assets
+curl -H "Accept: application/json" http://assetmgr.greencompute.ibmcase.com/assetmanager/assets
